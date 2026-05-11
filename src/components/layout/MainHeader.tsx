@@ -38,33 +38,6 @@ const NavGroup = styled.nav`
     gap: 16px;
 `;
 
-const IconButton = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    border-radius: 50%;
-    color: ${props => props.theme.colors.text.default};
-    transition: all 0.5s;
-    
-    &:hover {
-        background-color: ${props => props.theme.colors.background.default};
-    }
-`;
-
-const TextButton = styled.button`
-    font-size: 14px;
-    font-weight: 600;
-    color: ${props => props.theme.colors.text.default};
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: all 0.5s;
-    
-    &:hover {
-        background-color: ${props => props.theme.colors.background.default};
-    }
-`;
-
 function MainHeader() {
     return (
         <HeaderContainer>
@@ -74,11 +47,15 @@ function MainHeader() {
                     <span>토론대난투</span>
                 </Logo>
                 <NavGroup>
-                    <IconButton>
+                    <Button color={"primary"} variant={"icon"} onClick={() => console.log("테마변경")}>
                         <IoMoon size={20} />
-                    </IconButton>
-                    <TextButton as={Link} to={"/auth/login"}>로그인</TextButton>
-                    <Button color={"primary"}>회원가입</Button>
+                    </Button>
+                    <Button color={"primary"} variant={"text"} as={Link} to={"/auth/login"}>
+                        로그인
+                    </Button>
+                    <Button color={"primary"} variant={"contained"} as={Link} to={"/auth/signup"}>
+                        회원가입
+                    </Button>
                 </NavGroup>
             </HeaderInner>
         </HeaderContainer>

@@ -2,10 +2,12 @@ import { createBrowserRouter } from "react-router";
 import HomePage from "../pages/HomePage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
+import MainLayout from "../;ayouts/MainLayout.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
+        element: <MainLayout />,
         children: [
             { index: true, element: <HomePage /> },
             {

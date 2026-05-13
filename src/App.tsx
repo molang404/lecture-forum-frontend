@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import  { ThemeContext, type ThemeType } from "./contexts/theme/ThemeContext.ts";
 
 function App() {
-    const [ theme, setTheme ] = useState<ThemeType>(() => {
+    const [theme, setTheme] = useState<ThemeType>(() => {
         const savedTheme = localStorage.getItem("theme");
         return savedTheme === "dark" ? "dark" : "light";
     });

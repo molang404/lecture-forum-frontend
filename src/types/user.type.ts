@@ -12,3 +12,12 @@ export const Gender = {
 }
 
 export type GenderType = typeof Gender[keyof typeof Gender];
+// typeof 키워드 : 해당 변수의 타입을 반환
+// keyof 키워드 : 해당 객체의 키를 반환
+
+export const Role = {
+    USER: "USER",
+    ADMIN: "ADMIN",
+}
+
+export type RoleType = typeof Role[keyof typeof Role];

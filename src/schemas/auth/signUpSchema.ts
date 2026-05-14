@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Gender } from "../../types/user.type.ts";
 
-const phoneRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+const phoneRegex = /^01([016789])-?([0-9]{3,4})-?([0-9]{4})$/;
 
 // 각각의 항목에 대한 검증은 각각 해주면 되는데,
 // password와 passwordConfirm은 두 항목이 일치하는지를 검증해야 함
@@ -26,4 +26,5 @@ export const signUpSchema = z.object({
         message: "비밀번호가 일치하지 않습니다."
     });
 
+// 위에서 만든 createUserSchema는 조건을 건 "객체"를 만드는 일이라, 앞으로 다른 곳에서 사용할 타입을 만들어줘야 함
 export type SignUpInputType = z.infer<typeof signUpSchema>;

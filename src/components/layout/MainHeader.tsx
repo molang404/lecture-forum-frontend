@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router";
 import { IoChatbubbles, IoMoon, IoSunny } from "react-icons/io5";
-import Button from "../common/Button";
+import Button from "../common/button/Button.tsx";
 import { ThemeContext } from "../../contexts/theme/ThemeContext.ts";
 import { useContext } from "react";
 
@@ -54,7 +54,7 @@ function MainHeader() {
                     <Button color={"primary"} variant={"icon"} onClick={onChangeTheme}>
                         {theme === "light" ? <IoSunny size={20} /> : <IoMoon size={20} />}
                     </Button>
-                    <Button color={"primary"} variant={"text"} as={Link} to={"/auth/login"}>
+                    <Button color={"primary"} variant={"text"} as={Link} to={"/auth/signin"}>
                         로그인
                     </Button>
                     <Button color={"primary"} variant={"contained"} as={Link} to={"/auth/signup"}>

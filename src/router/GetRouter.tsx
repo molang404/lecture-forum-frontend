@@ -14,6 +14,16 @@ import { Role } from "../types/user.type.ts";
 
 // 라우터를 하기 전, 로더가 미들웨어로 동작하여 접근할 수 있는지 판별
 
+const guestLoader = () => {
+    const { isLoggedIn } = useAuthStore.getState();
+
+    if (isLoggedIn) {
+        return redirect("/");
+    }
+
+    return null;
+}
+
 const adminLoader = () => {
     // zustand가 저장하고 있는 회원정보에 접근해서 가져와야 함
     // 컴포넌트 안에서는 const { user, isLoggedIn } = useAuthStore(); 불러오는게 가능함
@@ -45,6 +55,7 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             {
                 path: "auth",
+                loader: guestLoader,
                 children: [
                     { path: "signin", element: <SignInPage /> },
                     { path: "signup", element: <SignUpPage /> },

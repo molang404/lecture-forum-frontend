@@ -9,6 +9,7 @@ const StyledButton = styled.button<{ $color: ButtonColorType; $variant: ButtonVa
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: ${props => props.$variant === "icon" ? "1" : "auto"};
     font-size: 14px;
     font-weight: 600;
     color: ${props => (props.$variant === "contained" ? "#ffffff" : "inherit")};

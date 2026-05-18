@@ -3,6 +3,9 @@ import { Link } from "react-router";
 import { IoChatbubbles, IoMoon, IoSunny } from "react-icons/io5";
 import Button from "../common/button/Button.tsx";
 import { useThemeStore } from "../../stores/theme/themeStore.ts";
+import { useAuthStore } from "../../stores/auth/authStore.ts";
+import { FiSettings, FiUser } from "react-icons/fi";
+import { Role } from "../../types/user.type.ts";
 
 const HeaderContainer = styled.header`
     height: 64px;
@@ -41,6 +44,7 @@ const NavGroup = styled.nav`
 
 function MainHeader() {
     const { theme, onChangeTheme } = useThemeStore();
+    const { user, isLoggedIn, logout } = useAuthStore();
 
     return (
         <HeaderContainer>
@@ -53,12 +57,28 @@ function MainHeader() {
                     <Button color={"primary"} variant={"icon"} onClick={onChangeTheme}>
                         {theme === "light" ? <IoSunny size={20} /> : <IoMoon size={20} />}
                     </Button>
-                    <Button color={"primary"} variant={"text"} as={Link} to={"/auth/signin"}>
-                        로그인
-                    </Button>
-                    <Button color={"primary"} variant={"contained"} as={Link} to={"/auth/signup"}>
-                        회원가입
-                    </Button>
+                    { isLoggedIn ? (
+                        <>
+                            <Button color={"primary"} variant={"icon"} as={Link} to={"/profile"}>
+                                <FiUser size={20} />
+                            </Button>
+                            {user?.role === Role.ADMIN && (
+                                <Button color={"primary"} variant={"contained"} as={Link} to={"/admin"}>
+                                    <FiSettings size={20} />
+                                </Button>
+                            )}
+                            <Button color={"error"} variant={"contained"} onClick={logout}>
+                                로그아웃
+                            </Button>
+                        </>
+                    ) : (<>
+                        <Button color={"primary"} variant={"text"} as={Link} to={"/auth/signin"}>
+                            로그인
+                        </Button>
+                        <Button color={"primary"} variant={"contained"} as={Link} to={"/auth/signup"}>
+                            회원가입
+                        </Button>
+                    </>)}
                 </NavGroup>
             </HeaderInner>
         </HeaderContainer>

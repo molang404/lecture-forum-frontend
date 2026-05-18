@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 import MainLayout from "../;ayouts/MainLayout.tsx";
+import AdminLayout from "../;ayouts/AdminLayout.tsx";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "/admin",
+        element: <AdminLayout />,
+    }
 ]);
 
 export default router;

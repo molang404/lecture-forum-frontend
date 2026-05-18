@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import styled from "styled-components";
-import MainHeader from "../components/layout/MainHeader.tsx";
-import MainFooter from "../components/layout/MainFooter.tsx";
+import MainHeader from "../components/layout/main/MainHeader.tsx";
+import MainFooter from "../components/layout/main/MainFooter.tsx";
 
 const LayoutWrapper = styled.div`
     display: flex;

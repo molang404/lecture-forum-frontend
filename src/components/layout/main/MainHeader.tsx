@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router";
 import { IoChatbubbles, IoMoon, IoSunny } from "react-icons/io5";
-import Button from "../common/button/Button.tsx";
-import { useThemeStore } from "../../stores/theme/themeStore.ts";
-import { useAuthStore } from "../../stores/auth/authStore.ts";
+import Button from "../../common/button/Button.tsx";
+import { useThemeStore } from "../../../stores/theme/themeStore.ts";
+import { useAuthStore } from "../../../stores/auth/authStore.ts";
 import { FiSettings, FiUser } from "react-icons/fi";
-import { Role } from "../../types/user.type.ts";
+import { Role } from "../../../types/user.type.ts";
 
 const HeaderContainer = styled.header`
     height: 64px;

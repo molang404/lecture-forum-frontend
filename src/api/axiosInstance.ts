@@ -9,3 +9,5 @@ const api = axios.create({
 });
 
 export default api;
+
+// 인터셉터 : 요청을 보내기 전에 axios가 내용을 가로채서 내용을 변경할 수 있음

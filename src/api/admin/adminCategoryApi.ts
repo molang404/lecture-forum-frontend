@@ -3,7 +3,7 @@ import type { Category } from "../../types/category.type.ts";
 
 const fetchCategoryList = async (): Promise<Category[]> => {
     const response = await axiosInstance.get("/admin/category/list");
-    return response.data.date;
+    return response.data.data;
 };
 
 // 카테고리 등록 API

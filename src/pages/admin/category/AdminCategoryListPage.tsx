@@ -18,7 +18,7 @@ function AdminCategoryListPage() {
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
         loadCategories().then(() => {});
     }, []);

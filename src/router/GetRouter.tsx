@@ -2,12 +2,11 @@ import { createBrowserRouter, redirect } from "react-router";
 import HomePage from "../pages/HomePage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
-import MainLayout from "../;ayouts/MainLayout.tsx";
-import AdminLayout from "../;ayouts/AdminLayout.tsx";
+import MainLayout from "../layouts/MainLayout.tsx";
+import AdminLayout from "../layouts/AdminLayout.tsx";
 import AdminCategoryListPage from "../pages/admin/category/AdminCategoryListPage.tsx";
 import { useAuthStore } from "../stores/auth/authStore.ts";
 import { Role } from "../types/user.type.ts";
-
 
 // 회원의 권한에 따라 접근할 수 있는 주소를 판별하기 위해서
 // react-router 라이브러리에서는 "로더(loader)"라는 기능을 제공함
@@ -22,7 +21,7 @@ const guestLoader = () => {
     }
 
     return null;
-}
+};
 
 const adminLoader = () => {
     // zustand가 저장하고 있는 회원정보에 접근해서 가져와야 함
@@ -45,7 +44,7 @@ const adminLoader = () => {
     }
 
     return null;
-}
+};
 
 const router = createBrowserRouter([
     {
@@ -59,7 +58,7 @@ const router = createBrowserRouter([
                 children: [
                     { path: "signin", element: <SignInPage /> },
                     { path: "signup", element: <SignUpPage /> },
-                ]
+                ],
             },
         ],
     },
@@ -71,9 +70,9 @@ const router = createBrowserRouter([
             {
                 path: "category",
                 children: [{ index: true, element: <AdminCategoryListPage /> }],
-            }
-        ]
-    }
+            },
+        ],
+    },
 ]);
 
 export default router;

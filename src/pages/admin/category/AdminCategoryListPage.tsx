@@ -5,6 +5,7 @@ import Button from "../../../components/common/button/Button.tsx";
 import { Link } from "react-router";
 import Card from "../../../components/common/card/Card.tsx";
 import {
+    AdminButtonGroup,
     AdminContainer,
     AdminLoadingText,
     AdminPageHeader,
@@ -16,6 +17,7 @@ import {
 } from "../../../components/admin/admin.style.tsx";
 import Badge from "../../../components/common/badge/Badge.tsx";
 import { FiRefreshCcw, FiTrash2 } from "react-icons/fi";
+import { FaEdit } from "react-icons/fa";
 
 function AdminCategoryListPage() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -49,52 +51,11 @@ function AdminCategoryListPage() {
             alert(`카테고리가 성공적으로 ${result.status}로 변경되었습니다.`);
             // 변경 작업을 하게 되면, 진짜 "변경"만 끝나는 거지,
             // 우리가 화면에 출력해주는 category의 데이터는 변하지 않음
-            // 1. 전체 목록을 다시 백엔드에게 요청해서 받아와서 categories의 내용을 바꿔주던지
-            //    -> 장점 : 화면에 출력되는 내용이 백엔드가 "진짜" 제공해준 내용으로 바꿔주므로 데이터가 재실행
-            //    -> 단점 : 목록을 다시 백엔드에게 요청해야 하므로, 백엔드가 응답이 오는데 시간이 걸림
-            // 2. 백엔드에게 목록을 요청하지 않고, 화면의 데이터만 교체해줄 것임
-            //    2번이 진행이 가능한 이유 : toggleCategoryStatus() 실행하면 진실된 "해당" 변경 정보를 백엔드가 주기 때문
-            //    -> 장점 : 백엔드가 두 번 일하지 않고서, 사용자에게 비교적 진실된 정보를 출력해줄 수 있음
 
             // 백엔드에게 목록을 요청하지 않고, 화면의 데이터만 교체해줄 것임
-            // 내가 현재 갖고있는 목록이 저장된 categories 중,
-            // 변경 작업이 이루어진 id가 동일한 항목에 대해서만 result를 가지고 status를 바꿔주겠다
-            // setCategories(prev =>
-            //     prev.map(item => (item.id === id ? { ...item, status: result.status } : item)),
-            // );
-            //
-            // // 1. categories는 state다. 그렇기 때문에 값을 바꾸려면 setCategories를 통할 수 밖에 없다
-            // // 2. 지금 하려는 건 완전히 새로운 값을 쓰려고 하는게 아니라 현재 값을 토대로 중간 내용만 살짝 바꾸려는 것 => 그러니까 함수 써야함
-            //
-            // setCategories(prev => {
-            //
-            // })
-            //
-            // // 2-2. 그 함수의 매개변수로 존재하는 prev는 "현재 categories에 저장된 값"을 뜻함
-            // // 3. 기존 값이 목록이고, 덮어쓰기 할 새로운 값도 목록이다   => return prev.map() 을 써야함
-            //
-            // setCategories(prev => {
-            //     return prev.map()
-            // })
-            //
-            // // 3-2. .map()이라는 명령어는 요소의 갯수가 같은 array가 반환
-            // // 4. 지금 현재 값인 Array 요소들 중, 내가 하려고 하는 건 id가 토글된 녀석의 상태값만 바꾸고 싶은 것
-            //
-            // setCategories(prev => {
-            //     return prev.map((item) => {
-            //         return item.id === id ? { ...item, status: result.status } : item;
-            //     })
-            // })
-            //
-            // setCategories(prev => {
-            //     return prev.map(item => item.id === id ? { ...item, status: result.status } : item);
-            // })
-
-            setCategories(prev => prev.map(item => item.id === id ? { ...item, status: result.status } : item));
-
-            // 이 코드를 작성할 때 기억해야 하는 거
-            // 백엔드가 뱉어준 "바뀐 Category의 정보"는 result라는 변수가 갖고 있다
-            // 그리고 "내가 변경해야 하는 그 Category의 id 정보"는 id라는 변수가 갖고 있다
+            setCategories(prev =>
+                prev.map(item => (item.id === id ? { ...item, status: result.status } : item)),
+            );
         } catch (error) {
             console.log(error);
             alert("카테고리 변경 중 오류가 발생되었습니다.");
@@ -155,16 +116,27 @@ function AdminCategoryListPage() {
                                             </Badge>
                                         </AdminTd>
                                         <AdminTd>
-                                            <Button
-                                                color={"primary"}
-                                                variant={"icon"}
-                                                onClick={() => handleToggleCategoryStatus(item.id)}>
-                                                {item.status === CategoryStatus.ACTIVE ? (
-                                                    <FiTrash2 size={18} />
-                                                ) : (
-                                                    <FiRefreshCcw size={18} />
-                                                )}
-                                            </Button>
+                                            <AdminButtonGroup $align={"left"}>
+                                                <Button
+                                                    color={"primary"}
+                                                    variant={"icon"}
+                                                    as={Link}
+                                                    to={`/admin/category/edit/${item.id}`}>
+                                                    <FaEdit />
+                                                </Button>
+                                                <Button
+                                                    color={"primary"}
+                                                    variant={"icon"}
+                                                    onClick={() =>
+                                                        handleToggleCategoryStatus(item.id)
+                                                    }>
+                                                    {item.status === CategoryStatus.ACTIVE ? (
+                                                        <FiTrash2 size={18} />
+                                                    ) : (
+                                                        <FiRefreshCcw size={18} />
+                                                    )}
+                                                </Button>
+                                            </AdminButtonGroup>
                                         </AdminTd>
                                     </tr>
                                 ))}

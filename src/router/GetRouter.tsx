@@ -8,6 +8,7 @@ import MainLayout from "../layouts/MainLayout.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 import AdminLayout from "../layouts/AdminLayout.tsx";
+import AdminCategoryEditPage from "../pages/admin/category/edit/AdminCategoryEditPage.tsx";
 
 // 회원의 권한에 따라 접근할 수 있는 주소를 판별하기 위해서
 // react-router 라이브러리에서는 "로더(loader)"라는 기능을 제공함
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
                 children: [
                     { index: true, element: <AdminCategoryListPage /> },
                     { path: "create", element: <AdminCategoryCreatePage /> },
+                    { path: "edit/:id", element: <AdminCategoryEditPage />},
                 ],
             },
         ],

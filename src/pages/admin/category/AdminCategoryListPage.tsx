@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import adminCategoryApi from "../../../api/admin/adminCategoryApi.ts";
-import type { Category } from "../../../types/category.type.ts";
+import { type Category, CategoryStatus } from "../../../types/category.type.ts";
 import Button from "../../../components/common/button/Button.tsx";
 import { Link } from "react-router";
 import Card from "../../../components/common/card/Card.tsx";
@@ -14,6 +14,7 @@ import {
     AdminTh,
     AdminTitle,
 } from "../../../components/admin/admin.style.tsx";
+import Badge from "../../../components/common/badge/Badge.tsx";
 
 function AdminCategoryListPage() {
     // useEffect를 통해 role을 판단하면 초기 렌더링이 끝난 후에 컴포넌트 내에서(화면이 그려진 후) 판별이 이루어짐
@@ -82,7 +83,11 @@ function AdminCategoryListPage() {
                                     <tr key={item.id}>
                                         <AdminTd>{item.id}</AdminTd>
                                         <AdminTd>{item.name}</AdminTd>
-                                        <AdminTd>{item.status}</AdminTd>
+                                        <AdminTd>
+                                            <Badge color={item.status === CategoryStatus.ACTIVE ? "success" : "secondary"}>
+                                                {item.status === CategoryStatus.ACTIVE ? "활성" : "비활성"}
+                                            </Badge>
+                                        </AdminTd>
                                         <AdminTd>기능</AdminTd>
                                     </tr>
                                 ))}

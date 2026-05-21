@@ -7,6 +7,7 @@ import AdminLayout from "../layouts/AdminLayout.tsx";
 import AdminCategoryListPage from "../pages/admin/category/AdminCategoryListPage.tsx";
 import { useAuthStore } from "../stores/auth/authStore.ts";
 import { Role } from "../types/user.type.ts";
+import AdminCategoryCreatePage from "../pages/admin/category/create/AdminCategoryCreatePage.tsx";
 
 // 회원의 권한에 따라 접근할 수 있는 주소를 판별하기 위해서
 // react-router 라이브러리에서는 "로더(loader)"라는 기능을 제공함
@@ -69,7 +70,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "category",
-                children: [{ index: true, element: <AdminCategoryListPage /> }],
+                children: [
+                    { index: true, element: <AdminCategoryListPage /> },
+                    { path: "create", element: <AdminCategoryCreatePage />},
+                ],
             },
         ],
     },

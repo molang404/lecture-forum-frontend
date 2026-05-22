@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const StyledInputGroup = styled.div`
+export const StyledInputGroup = styled.div<{ $wrap?: boolean }>`
+    width: ${props => props.$wrap ? "calc((100% - 32px) / 2)" : "auto"};
     display: flex;
     flex-direction: column;
     gap: 8px;

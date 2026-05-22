@@ -55,9 +55,10 @@ export const AdminTd = styled.td`
     vertical-align: middle;
 `;
 
-export const AdminForm = styled.form`
+export const AdminForm = styled.form<{ $wrap?: boolean }>`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${props => (props.$wrap ? "row" : "column")};
+    flex-wrap: ${props => (props.$wrap ? "wrap" : "nowrap")};
     gap: 32px;
 `;
 

@@ -1,6 +1,7 @@
 import {
     AdminButtonGroup,
-    AdminContainer, AdminForm,
+    AdminContainer,
+    AdminForm,
     AdminPageHeader,
     AdminTitle,
 } from "../../../../components/admin/admin.style.tsx";
@@ -8,7 +9,10 @@ import Card from "../../../../components/common/card/Card.tsx";
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type AdminCreateUserInputType, adminCreateUserSchema } from "../../../../schemas/admin/user/adminCreateUserSchema.ts";
+import {
+    type AdminCreateUserInputType,
+    adminCreateUserSchema,
+} from "../../../../schemas/admin/user/adminCreateUserSchema.ts";
 import InputGroup from "../../../../components/common/input/InputGroup.tsx";
 import Button from "../../../../components/common/button/Button.tsx";
 import SelectGroup from "../../../../components/common/select/SelectGroup.tsx";
@@ -54,15 +58,18 @@ function AdminUserCreatePage() {
                 <AdminTitle>새 사용자 추가</AdminTitle>
             </AdminPageHeader>
             <Card>
-                <AdminForm onSubmit={handleSubmit(onSubmit)}>
+                <AdminForm onSubmit={handleSubmit(onSubmit)} $wrap={true}>
                     <InputGroup
+                        wrap={true}
                         label={"아이디"}
                         id={"username"}
                         errorMessage={errors.username?.message}
                         registerObj={register("username")}
                         placeholder={"4자 이상 필요"}
                     />
+
                     <InputGroup
+                        wrap={true}
                         label={"비밀번호"}
                         id={"password"}
                         errorMessage={errors.password?.message}
@@ -72,6 +79,7 @@ function AdminUserCreatePage() {
                     />
 
                     <InputGroup
+                        wrap={true}
                         label={"이름"}
                         id={"name"}
                         errorMessage={errors.name?.message}
@@ -79,6 +87,7 @@ function AdminUserCreatePage() {
                     />
 
                     <InputGroup
+                        wrap={true}
                         label={"닉네임"}
                         id={"nickname"}
                         errorMessage={errors.nickname?.message}
@@ -87,6 +96,7 @@ function AdminUserCreatePage() {
                     />
 
                     <InputGroup
+                        wrap={true}
                         label={"이메일"}
                         id={"email"}
                         errorMessage={errors.email?.message}
@@ -95,6 +105,7 @@ function AdminUserCreatePage() {
                     />
 
                     <InputGroup
+                        wrap={true}
                         label={"전화번호"}
                         id={"phoneNumber"}
                         errorMessage={errors.phoneNumber?.message}
@@ -103,6 +114,7 @@ function AdminUserCreatePage() {
                     />
 
                     <InputGroup
+                        wrap={true}
                         label={"생년월일"}
                         id={"birthdate"}
                         errorMessage={errors.birthdate?.message}
@@ -111,6 +123,7 @@ function AdminUserCreatePage() {
                     />
 
                     <SelectGroup
+                        wrap={true}
                         label={"성별"}
                         id={"gender"}
                         errorMessage={errors.gender?.message}
@@ -119,7 +132,9 @@ function AdminUserCreatePage() {
                         <option value={Gender.MALE}>남자</option>
                         <option value={Gender.FEMALE}>여자</option>
                     </SelectGroup>
+
                     <SelectGroup
+                        wrap={true}
                         label={"종류"}
                         id={"role"}
                         errorMessage={errors.role?.message}
@@ -129,21 +144,24 @@ function AdminUserCreatePage() {
                         <option value={Role.USER}>일반 사용자</option>
                     </SelectGroup>
 
-                    {errors.root && <AuthRootErrorMessage>{errors.root?.message}</AuthRootErrorMessage>}
-
-                    <AdminButtonGroup $align={"right"}>
-                        <Button color={"primary"} variant={"text"} as={Link} to={"/admin/user"}>
-                            취소
-                        </Button>
-                        <Button
-                            type={"submit"}
-                            color={"success"}
-                            variant={"contained"}
-                            disabled={isSubmitting}
-                        >
-                            등록
-                        </Button>
-                    </AdminButtonGroup>
+                    <div style={{ width: "100%", gap: "32px" }}>
+                        {errors.root && (
+                            <AuthRootErrorMessage>{errors.root?.message}</AuthRootErrorMessage>
+                        )}
+                        
+                        <AdminButtonGroup $align={"right"}>
+                            <Button color={"primary"} variant={"text"} as={Link} to={"/admin/user"}>
+                                취소
+                            </Button>
+                            <Button
+                                type={"submit"}
+                                color={"success"}
+                                variant={"contained"}
+                                disabled={isSubmitting}>
+                                등록
+                            </Button>
+                        </AdminButtonGroup>
+                    </div>
                 </AdminForm>
             </Card>
         </AdminContainer>

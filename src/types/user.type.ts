@@ -32,7 +32,7 @@ export interface User {
     nickname: string;
     email: string;
     phoneNumber: string | null;
-    birthday: Date | null;
+    birthdate: string | null;
     gender: GenderType;
     role: RoleType;
 }

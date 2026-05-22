@@ -57,6 +57,7 @@ function AdminUserCreatePage() {
             <AdminPageHeader>
                 <AdminTitle>새 사용자 추가</AdminTitle>
             </AdminPageHeader>
+
             <Card>
                 <AdminForm onSubmit={handleSubmit(onSubmit)} $wrap={true}>
                     <InputGroup

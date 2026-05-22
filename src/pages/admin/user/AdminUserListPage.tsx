@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Role, type User } from "../../../types/user.type.ts";
 import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
 import {
+    AdminButtonGroup,
     AdminContainer,
     AdminLoadingText,
     AdminPageHeader,
@@ -15,6 +16,7 @@ import Button from "../../../components/common/button/Button.tsx";
 import { Link } from "react-router";
 import Card from "../../../components/common/card/Card.tsx";
 import Badge from "../../../components/common/badge/Badge.tsx";
+import { FiEdit } from "react-icons/fi";
 
 function AdminUserListPage() {
     const [list, setList] = useState<User[]>([]);
@@ -92,7 +94,17 @@ function AdminUserListPage() {
                                             </Badge>
                                         </AdminTd>
                                         <AdminTd>{new Date(item.createdAt).toLocaleString()}</AdminTd>
-                                        <AdminTd>기능</AdminTd>
+                                        <AdminTd>
+                                            <AdminButtonGroup>
+                                                <Button
+                                                    variant={"icon"}
+                                                    color={"primary"}
+                                                    as={Link}
+                                                    to={`/admin/user/${item.id}`}>
+                                                    <FiEdit size={18} />
+                                                </Button>
+                                            </AdminButtonGroup>
+                                        </AdminTd>
                                     </tr>
                                 ))}
                             </tbody>

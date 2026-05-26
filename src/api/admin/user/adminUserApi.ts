@@ -23,9 +23,15 @@ const updateUser = async (id: number, data: AdminUpdateUserInputType): Promise<U
     return response.data.data;
 };
 
+const deleteUser = async (id: number): Promise<User> => {
+    const response = await axiosInstance.patch(`/admin/user/${id}/delete`);
+    return response.data.data;
+};
+
 export default {
     fetchUserList,
     createUser,
     updateUser,
     fetchUserById,
+    deleteUser,
 };

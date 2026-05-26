@@ -16,16 +16,22 @@ import Button from "../../../components/common/button/Button.tsx";
 import { Link } from "react-router";
 import Card from "../../../components/common/card/Card.tsx";
 import Badge from "../../../components/common/badge/Badge.tsx";
-import { FiEdit, FiTrash} from "react-icons/fi";
+import { FiEdit, FiTrash } from "react-icons/fi";
 
 function AdminUserListPage() {
     const [list, setList] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const loadUser = async () => {
+    const SIZE = 20;
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+    const totalPage = Math.ceil(total / SIZE); // Math.ceil() : 올림 메서드
+
+    const loadUser = async (page: number) => {
         try {
-            const data = await adminUserApi.fetchUserList();
-            setList(data);
+            const data = await adminUserApi.fetchUserList(page, SIZE);
+            setList(data.list);
+            setTotal(data.total);
         } catch (error) {
             console.log(error);
             alert("사용자 목록을 불러오는데 실패했습니다.");
@@ -34,6 +40,10 @@ function AdminUserListPage() {
         }
     };
 
+    // useEffect는 초기렌더링이 끝난 즉시 1번 무조건 실행
+    // page가 바뀔 때 목록 갱신 함수가 실행되어야 함 ⇒ useEffect의 의존성 배열이 하는 일
+
+    // 의존성 배열에 넣은 변수나 함수나 메서드나 state가 바뀔 때 재시작됨
     useEffect(() => {
         // 이 함수는, 백엔드에게 내용을 받아서 state에 저장 => 화면 출력을 해주는 함수를 useEffect 매개변수 안에 작성해서
         // 함수 안에 함수를 선언하고, 그걸 실행했었음
@@ -41,8 +51,8 @@ function AdminUserListPage() {
         // 그 함수를 밖으로 뺌
 
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        loadUser().then(() => {});
-    }, []);
+        loadUser(page).then(() => {});
+    }, [page]);
 
     const handleDelete = async (id: number) => {
         // confirm은 사용자에게 경고장을 통해 확인을 받는 메서드. true/false 가 반환됨
@@ -64,12 +74,16 @@ function AdminUserListPage() {
             // 1번으로 진행하려면,        => 이미 우리가 작성한 내용이 있음
             // 1-1. 백엔드에게 다시 데이터 요청
             // 1-2. 받아온 정보를 목록을 관리하는 state에 덮어쓰기
-            loadUser().then(() => {});
+            loadUser(page).then(() => {});
         } catch (error) {
             console.log(error);
             alert("사용자 삭제 중 오류가 발생했습니다.");
         }
-    }
+    };
+
+    const handlePageChange = (page: number) => {
+        setPage(page);
+    };
 
     return (
         <AdminContainer>
@@ -127,7 +141,9 @@ function AdminUserListPage() {
                                                 {item.deletedAt ? "탈퇴" : "정상"}
                                             </Badge>
                                         </AdminTd>
-                                        <AdminTd>{new Date(item.createdAt).toLocaleString()}</AdminTd>
+                                        <AdminTd>
+                                            {new Date(item.createdAt).toLocaleString()}
+                                        </AdminTd>
                                         <AdminTd>
                                             <AdminButtonGroup>
                                                 <Button
@@ -152,6 +168,32 @@ function AdminUserListPage() {
                             </tbody>
                         </AdminTable>
                     </AdminTableWrapper>
+                )}
+
+                {total > 0 && (
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: "20px",
+                            gap: "10px",
+                        }}>
+                        <Button
+                            color={"primary"}
+                            variant={"text"}
+                            disabled={page === 1}
+                            onClick={() => handlePageChange(page - 1)}>
+                            이전
+                        </Button>
+                        <Button
+                            color={"primary"}
+                            variant={"text"}
+                            disabled={page === totalPage}
+                            onClick={() => handlePageChange(page + 1)}>
+                            다음
+                        </Button>
+                    </div>
                 )}
             </Card>
         </AdminContainer>

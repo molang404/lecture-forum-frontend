@@ -4,17 +4,45 @@ import {
     type AdminEditCategoryInputType,
     adminEditCategorySchema,
 } from "../../../../schemas/admin/edit/adminEditCategorySchema.ts";
-import { AdminButtonGroup, AdminContainer, AdminForm, AdminPageHeader, AdminTitle } from "../../../../components/admin/admin.style.tsx";
+import {
+    AdminButtonGroup,
+    AdminContainer,
+    AdminForm, AdminLoadingText,
+    AdminPageHeader,
+    AdminTitle,
+} from "../../../../components/admin/admin.style.tsx";
 import Card from "../../../../components/common/card/Card.tsx";
 import InputGroup from "../../../../components/common/input/InputGroup.tsx";
 import Button from "../../../../components/common/button/Button.tsx";
 import { Link, useNavigate, useParams } from "react-router";
 import adminCategoryApi from "../../../../api/admin/adminCategoryApi.ts";
 import * as axios from "axios";
+import { useEffect, useState } from "react";
+import type { Category } from "../../../../types/category.type.ts";
 
 function AdminCategoryUpdatePage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const [category, setCategory] = useState<Category | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadInitialData = async () => {
+            if (!id) return;
+            try {
+                const result = await adminCategoryApi.fetchCategoryById(Number(id));
+                setCategory(result);
+            } catch (error) {
+                console.log(error);
+                alert("존재하지 않거나 삭제된 카테고리입니다.");
+                navigate("/admin/category");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadInitialData().then(() => {});
+    }, [id, navigate]);
 
     const {
         register,
@@ -24,6 +52,9 @@ function AdminCategoryUpdatePage() {
     } = useForm({
         resolver: zodResolver(adminEditCategorySchema),
         mode: "onBlur",
+        defaultValues: {
+            name: category?.name || "",
+        }
     });
 
     const onSubmit = async (data: AdminEditCategoryInputType) => {
@@ -47,7 +78,10 @@ function AdminCategoryUpdatePage() {
             </AdminPageHeader>
 
             <Card>
-                <AdminForm onSubmit={handleSubmit(onSubmit)}>
+                {loading ? (
+                        <AdminLoadingText>데이터를 불러오는 중...</AdminLoadingText>
+                    ) :
+                    <AdminForm onSubmit={handleSubmit(onSubmit)}>
                     <InputGroup
                         id={"name"}
                         label={"카테고리 이름"}
@@ -72,6 +106,7 @@ function AdminCategoryUpdatePage() {
                         </Button>
                     </AdminButtonGroup>
                 </AdminForm>
+                }
             </Card>
         </AdminContainer>
     );

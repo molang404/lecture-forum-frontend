@@ -13,7 +13,7 @@ import {
     AdminTitle,
 } from "../../../components/admin/admin.style.tsx";
 import Button from "../../../components/common/button/Button.tsx";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import Card from "../../../components/common/card/Card.tsx";
 import Badge from "../../../components/common/badge/Badge.tsx";
 import { FiEdit, FiTrash } from "react-icons/fi";
@@ -22,8 +22,12 @@ function AdminUserListPage() {
     const [list, setList] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    // const pageParams = searchParams.get("page");
+    // const page = pageParams ? Number(pageParams) : 1;
+    const page = Number(searchParams.get("page")) || 1; // 이것 자체가 state임
+
     const SIZE = 20;
-    const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
     const totalPage = Math.ceil(total / SIZE); // Math.ceil() : 올림 메서드
 
@@ -49,6 +53,9 @@ function AdminUserListPage() {
         // 함수 안에 함수를 선언하고, 그걸 실행했었음
         // 함수 스코프에 의해 외부에서는 실행 불가능 => 외부에서도 저 기능을 이용해야 는 상황이 되었으니
         // 그 함수를 밖으로 뺌
+
+        // 사용자의 스크롤을 이동시키는 명령
+        window.scrollTo({ top: 0, behavior: "instant" });
 
         // eslint-disable-next-line react-hooks/set-state-in-effect
         loadUser(page).then(() => {});
@@ -82,7 +89,10 @@ function AdminUserListPage() {
     };
 
     const handlePageChange = (page: number) => {
-        setPage(page);
+        // state의 값을 바로 바꾸는게 아니라,
+        // 쿼리스트링에 존재하는 page의 값을 변경해야 함
+        searchParams.set("page", page.toString()); // searchParams 내부의 page 프로퍼티 값을 변경
+        setSearchParams(searchParams); // 주소 변경
     };
 
     return (
@@ -100,14 +110,16 @@ function AdminUserListPage() {
                     <AdminTableWrapper>
                         <AdminTable>
                             <thead>
-                                <AdminTh $width={"5%"}>ID</AdminTh>
-                                <AdminTh $width={"15%"}>아이디</AdminTh>
-                                <AdminTh $width={"15%"}>이름 (닉네임)</AdminTh>
-                                <AdminTh $width={"20%"}>이메일</AdminTh>
-                                <AdminTh $width={"10%"}>권한</AdminTh>
-                                <AdminTh $width={"10%"}>상태</AdminTh>
-                                <AdminTh $width={"15%"}>가입일</AdminTh>
-                                <AdminTh $width={"10%"}>관리</AdminTh>
+                                <tr>
+                                    <AdminTh $width={"5%"}>ID</AdminTh>
+                                    <AdminTh $width={"15%"}>아이디</AdminTh>
+                                    <AdminTh $width={"15%"}>이름 (닉네임)</AdminTh>
+                                    <AdminTh $width={"20%"}>이메일</AdminTh>
+                                    <AdminTh $width={"10%"}>권한</AdminTh>
+                                    <AdminTh $width={"10%"}>상태</AdminTh>
+                                    <AdminTh $width={"15%"}>가입일</AdminTh>
+                                    <AdminTh $width={"10%"}>관리</AdminTh>
+                                </tr>
                             </thead>
                             <tbody>
                                 {list.length === 0 && (

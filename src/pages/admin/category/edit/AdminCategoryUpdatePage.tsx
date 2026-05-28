@@ -18,20 +18,29 @@ import { Link, useNavigate, useParams } from "react-router";
 import adminCategoryApi from "../../../../api/admin/adminCategoryApi.ts";
 import * as axios from "axios";
 import { useEffect, useState } from "react";
-import type { Category } from "../../../../types/category.type.ts";
 
 function AdminCategoryUpdatePage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const [category, setCategory] = useState<Category | null>(null);
     const [loading, setLoading] = useState(true);
+
+    const {
+        register,
+        handleSubmit,
+        setError,
+        setValue,
+        formState: { errors, isSubmitting },
+    } = useForm({
+        resolver: zodResolver(adminEditCategorySchema),
+        mode: "onBlur",
+    });
 
     useEffect(() => {
         const loadInitialData = async () => {
             if (!id) return;
             try {
                 const result = await adminCategoryApi.fetchCategoryById(Number(id));
-                setCategory(result);
+                setValue("name", result.name);
             } catch (error) {
                 console.log(error);
                 alert("존재하지 않거나 삭제된 카테고리입니다.");
@@ -42,20 +51,7 @@ function AdminCategoryUpdatePage() {
         };
 
         loadInitialData().then(() => {});
-    }, [id, navigate]);
-
-    const {
-        register,
-        handleSubmit,
-        setError,
-        formState: { errors, isSubmitting },
-    } = useForm({
-        resolver: zodResolver(adminEditCategorySchema),
-        mode: "onBlur",
-        defaultValues: {
-            name: category?.name || "",
-        }
-    });
+    }, [id, navigate, setValue]);
 
     const onSubmit = async (data: AdminEditCategoryInputType) => {
         try {

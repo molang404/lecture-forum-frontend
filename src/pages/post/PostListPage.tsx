@@ -103,7 +103,9 @@ function PostListPage() {
                             {list.map(item => (
                                 <tr key={item.id}>
                                     <BoardTd>{item.id}</BoardTd>
-                                    <BoardTd className={"title-cell"}>{item.title}</BoardTd>
+                                    <BoardTd className={"title-cell"}>
+                                        <Link to={`/post/${item.id}`}>{item.title}</Link>
+                                    </BoardTd>
                                     <BoardTd>{item.user.nickname}</BoardTd>
                                     <BoardTd>
                                         {/*

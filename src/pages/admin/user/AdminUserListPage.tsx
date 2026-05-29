@@ -17,6 +17,7 @@ import { Link, useSearchParams } from "react-router";
 import Card from "../../../components/common/card/Card.tsx";
 import Badge from "../../../components/common/badge/Badge.tsx";
 import { FiEdit, FiTrash } from "react-icons/fi";
+import Pagination from "../../../components/common/pagination/Pagination.tsx";
 
 function AdminUserListPage() {
     const [list, setList] = useState<User[]>([]);
@@ -183,29 +184,11 @@ function AdminUserListPage() {
                 )}
 
                 {total > 0 && (
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            marginTop: "20px",
-                            gap: "10px",
-                        }}>
-                        <Button
-                            color={"primary"}
-                            variant={"text"}
-                            disabled={page === 1}
-                            onClick={() => handlePageChange(page - 1)}>
-                            이전
-                        </Button>
-                        <Button
-                            color={"primary"}
-                            variant={"text"}
-                            disabled={page === totalPage}
-                            onClick={() => handlePageChange(page + 1)}>
-                            다음
-                        </Button>
-                    </div>
+                    <Pagination
+                        currentPage={page}
+                        totalPage={totalPage}
+                        onPageChange={handlePageChange}
+                    />
                 )}
             </Card>
         </AdminContainer>

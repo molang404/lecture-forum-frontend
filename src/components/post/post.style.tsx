@@ -166,6 +166,72 @@ export const DetailContent = styled.div`
     white-space: pre-wrap; // 줄바꿈 문자 \ n 을 실제 줄바꿈으로 처리
 `;
 
+export const Battleground = styled.div`
+    margin-top: 60px;
+    padding: 32px;
+    background-color: ${props => props.theme.colors.background.default};
+    border-radius: 12px;
+    border: 1px solid ${props => props.theme.colors.divider};
+`;
+
+export const BattleTitle = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 32px;
+`;
+
+export const VoteSection = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+`;
+
+export const VoteCard = styled.button<{ $color: string }>`
+        background-color: ${({ theme }) => theme.colors.background.paper};
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: ${({ theme }) => theme.colors.text.default};
+
+    svg {
+        color: ${({ $color }) => $color};
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        word-break: keep-all;
+    }
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        color: ${({ theme }) => theme.colors.text.disabled};
+    }
+
+    &:hover:not(:disabled) {
+        border-color: ${({ $color }) => $color};
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px ${({ $color }) => `${$color}20`};
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+`;
+
 export const LoadingText= styled.div`
     text-align: center;
     padding: 100px 0;

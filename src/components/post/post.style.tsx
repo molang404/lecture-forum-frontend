@@ -167,7 +167,7 @@ export const DetailContent = styled.div`
 `;
 
 export const BattleGround = styled.div`
-    margin-top: 60px;
+    margin: 60px 0;
     padding: 32px;
     background-color: ${props => props.theme.colors.background.default};
     border-radius: 12px;

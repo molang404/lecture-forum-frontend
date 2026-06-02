@@ -15,6 +15,7 @@ import { useAuthStore } from "../../../stores/auth/authStore.ts";
 import { AdminButtonGroup } from "../../../components/admin/admin.style.tsx";
 import Button from "../../../components/common/button/Button.tsx";
 import PostVote from "../../../components/post/PostVote.tsx";
+import PostReply from "../../../components/post/PostReply.tsx";
 
 function PostDetailPage() {
     const navigate = useNavigate();
@@ -112,6 +113,8 @@ function PostDetailPage() {
                         </>
                     )}
                 </AdminButtonGroup>
+
+                <PostReply postId={post.id} />
             </DetailWrapper>
         </PostContainer>
     );

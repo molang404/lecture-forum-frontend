@@ -145,13 +145,13 @@ export const DetailInfo = styled.div`
     align-items: center;
     font-size: 14px;
     color: ${props => props.theme.colors.text.disabled};
-    
+
     .left-info {
         display: flex;
         gap: 16px;
         align-items: center;
     }
-    
+
     .right-info {
         display: flex;
         gap: 16px;
@@ -166,7 +166,7 @@ export const DetailContent = styled.div`
     white-space: pre-wrap; // 줄바꿈 문자 \ n 을 실제 줄바꿈으로 처리
 `;
 
-export const Battleground = styled.div`
+export const BattleGround = styled.div`
     margin-top: 60px;
     padding: 32px;
     background-color: ${props => props.theme.colors.background.default};
@@ -192,43 +192,37 @@ export const VoteSection = styled.div`
 `;
 
 export const VoteCard = styled.button<{ $color: string }>`
-    background-color: ${({ theme }) => theme.colors.background.paper};
+    flex: 1;
+    width: 100%;
+    padding: 40px 20px;
+    background-color: ${props => props.theme.colors.background.paper};
     border: 2px solid transparent;
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    color: ${({ theme }) => theme.colors.text.default};
+    color: ${props => props.theme.colors.text.default};
 
     svg {
-        color: ${({ $color }) => $color};
+        color: ${props => props.$color};
     }
 
     h3 {
-        margin: 0;
         font-size: 20px;
         font-weight: 700;
-        word-break: keep-all;
     }
 
     p {
-        margin: 0;
         font-size: 14px;
-        color: ${({ theme }) => theme.colors.text.disabled};
+        color: ${props => props.theme.colors.text.disabled};
     }
 
-    &:hover:not(:disabled) {
-        border-color: ${({ $color }) => $color};
+    &:hover {
+        border-color: ${props => props.$color};
         transform: translateY(-4px);
-        box-shadow: 0 10px 20px ${({ $color }) => `${$color}20`};
-    }
-
-    &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
     }
 `;
 

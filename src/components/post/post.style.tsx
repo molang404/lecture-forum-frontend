@@ -166,8 +166,8 @@ export const DetailContent = styled.div`
     white-space: pre-wrap; // 줄바꿈 문자 \ n 을 실제 줄바꿈으로 처리
 `;
 
-export const Battleground = styled.div`
-    margin-top: 60px;
+export const BattleGround = styled.div`
+    margin: 60px 0;
     padding: 32px;
     background-color: ${props => props.theme.colors.background.default};
     border-radius: 12px;
@@ -192,7 +192,10 @@ export const VoteSection = styled.div`
 `;
 
 export const VoteCard = styled.button<{ $color: string }>`
-        background-color: ${({ theme }) => theme.colors.background.paper};
+    flex: 1;
+    width: 100%;
+    padding: 40px 20px;
+    background-color: ${props => props.theme.colors.background.paper};
     border: 2px solid transparent;
     border-radius: 12px;
     cursor: pointer;
@@ -201,7 +204,7 @@ export const VoteCard = styled.button<{ $color: string }>`
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    color: ${({ theme }) => theme.colors.text.default};
+    color: ${props => props.theme.colors.text.default};
 
     svg {
         color: ${({ $color }) => $color};
@@ -217,7 +220,7 @@ export const VoteCard = styled.button<{ $color: string }>`
     p {
         margin: 0;
         font-size: 14px;
-        color: ${({ theme }) => theme.colors.text.disabled};
+        color: ${props => props.theme.colors.text.disabled};
     }
 
     &:hover:not(:disabled) {

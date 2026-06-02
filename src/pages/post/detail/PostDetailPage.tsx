@@ -3,7 +3,7 @@ import type { Post } from "../../../types/post.type.ts";
 import { useNavigate, useParams } from "react-router";
 import postApi from "../../../api/user/postApi.ts";
 import {
-    Battleground,
+    BattleGround,
     BattleTitle,
     DetailContent,
     DetailHeader,
@@ -11,9 +11,7 @@ import {
     DetailTitle,
     DetailWrapper,
     LoadingText,
-    PostContainer,
-    VoteSection,
-    VoteCard,
+    PostContainer, VoteCard, VoteSection,
 } from "../../../components/post/post.style.tsx";
 import { useAuthStore } from "../../../stores/auth/authStore.ts";
 import { AdminButtonGroup } from "../../../components/admin/admin.style.tsx";
@@ -74,25 +72,6 @@ function PostDetailPage() {
     const opt1Percent = totalVotes > 0 && post.vote ? Math.round((post.vote.option1Count / totalVotes) * 100) : 50;
     const opt2Percent = totalVotes > 0 && post.vote ? Math.round((post.vote.option1Count / totalVotes) * 100) : 50;
 
-    const handleVote = async (option: number) => {
-        // 들어온 option을 가지고, 백엔드에게 요청
-        if (!isLoggedIn) {
-            alert("투표에 참여하려면 로그인이 필요합니다.");
-            return;
-        }
-
-        setIsVoting(true);
-        try {
-            await postApi.votePost(Number(id), option);
-            await loadPost();
-        } catch (error) {
-            console.log("투표 실패 : ",error);
-            alert("투표 처리 중 오류가 발생했습니다.");
-        } finally {
-            setIsVoting(false);
-        }
-    };
-
     return (
         <PostContainer>
             <DetailWrapper>
@@ -122,36 +101,25 @@ function PostDetailPage() {
                 <DetailContent>{post.content}</DetailContent>
 
                 {hasVoteSystem && post.vote && (
-                    <Battleground>
-                        <GiCrossedSwords size={18} color={"#EF4444"} />
-                        <BattleTitle>당신의 선택은?</BattleTitle>
+                    <BattleGround>
+                        <BattleTitle>
+                            <GiCrossedSwords size={20} style={{ color: "#EF4444" }} />
+                            <div>당신의 선택은?</div>
+                        </BattleTitle>
 
-                        {/* 지금 사용자가 투표를 했을 때, 투표를 안 했을 때 */}
-                        {post.vote.hasVoted ? (
-                            // 투표가 되었을 때
-                            <></>
-                        ) : (
-                            // 투표가 안 되었을 때
-                            <VoteSection>
-                                <VoteCard
-                                    $color={"#EF4444"}
-                                    onClick={() => handleVote(1)}
-                                    disabled={isVoting}>
-                                    <LuFlame size={32} />
-                                    <h3>{post.option1Text}</h3>
-                                    <p>클릭하여 1번에 투표</p>
-                                </VoteCard>
-                                <VoteCard
-                                    $color={"#3B82F6"}
-                                    onClick={() => handleVote(2)}
-                                    disabled={isVoting}>
-                                    <LuDroplets size={32} />
-                                    <h3>{post.option2Text}</h3>
-                                    <p>클릭하여 2번에 투표</p>
-                                </VoteCard>
-                            </VoteSection>
-                        )}
-                    </Battleground>
+                        <VoteSection>
+                            <VoteCard $color={"#EF4444"}>
+                                <LuFlame size={32} />
+                                <h3>{post.option1Text}</h3>
+                                <p>클릭하여 1번에 투표</p>
+                            </VoteCard>
+                            <VoteCard $color={"#3B82F6"}>
+                                <LuDroplets size={32} />
+                                <h3>{post.option2Text}</h3>
+                                <p>클릭하여 2번에 투표</p>
+                            </VoteCard>
+                        </VoteSection>
+                    </BattleGround>
                 )}
 
                 <AdminButtonGroup>

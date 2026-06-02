@@ -12,6 +12,11 @@ import {
     DetailWrapper,
     LoadingText,
     PostContainer,
+    ResultBar,
+    ResultBarWrapper,
+    ResultSection,
+    ResultText,
+    RevoteButton,
     VoteCard,
     VoteSection,
 } from "../../../components/post/post.style.tsx";
@@ -19,13 +24,14 @@ import { useAuthStore } from "../../../stores/auth/authStore.ts";
 import { AdminButtonGroup } from "../../../components/admin/admin.style.tsx";
 import Button from "../../../components/common/button/Button.tsx";
 import {GiCrossedSwords} from "react-icons/gi";
-import { LuDroplets, LuFlame } from "react-icons/lu";
+import { LuDroplets, LuFlame, LuRotateCcw } from "react-icons/lu";
 
 function PostDetailPage() {
     const navigate = useNavigate();
     const [post, setPost] = useState<Post | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isVoting, setIsVoting] = useState(false);
+    const [isCanceling, setIsCanceling] = useState(false);
 
     const { id } = useParams<{ id: string }>();
     const { user, isLoggedIn } = useAuthStore();
@@ -97,6 +103,23 @@ function PostDetailPage() {
         }
     };
 
+    const handleCancelVote = async () => {
+        if (!confirm("투표를 취소하고 다시 선택하시겠습니까?")) {
+            return;
+        }
+
+        setIsCanceling(true);
+        try {
+            await postApi.cancelVotePost(Number(id));
+            await loadPost();
+        } catch (error) {
+            console.log("투표 취소 실패 : ", error);
+            alert("투표 취소 처리 중 오류가 발생했습니다.");
+        } finally {
+            setIsCanceling(false);
+        }
+    };
+
     return (
         <PostContainer>
             <DetailWrapper>
@@ -133,7 +156,32 @@ function PostDetailPage() {
                         {/* 지금 사용자가 투표를 했을 때, 투표를 안 했을 때 */}
                         {post.vote.hasVoted ? (
                             // 투표가 되었을 때
-                            <></>
+                            <ResultSection>
+                                <ResultBarWrapper>
+                                    <ResultBar $color={"#EF4444"} $width={`${opt1Percent}%`}>
+                                        <span className={"label"}>
+                                            <LuFlame /> {post.option1Text}
+                                        </span>
+                                        <span className={"percent"}>
+                                            {opt1Percent}% ({post.vote.option1Count}명)
+                                        </span>
+                                    </ResultBar>
+                                    <ResultBar $color={"#3B82F6"} $width={`${opt2Percent}%`}>
+                                        <span className={"label"}>
+                                            <LuDroplets /> {post.option2Text}
+                                        </span>
+                                        <span className={"percent"}>
+                                            {opt2Percent}% ({post.vote.option2Count}명)
+                                        </span>
+                                    </ResultBar>
+                                </ResultBarWrapper>
+
+                                <ResultText>소중한 한 표가 전황에 반영되었습니다.</ResultText>
+
+                                <RevoteButton onClick={handleCancelVote} disabled={isCanceling}>
+                                    <LuRotateCcw size={16} /> 다시 투표하기
+                                </RevoteButton>
+                            </ResultSection>
                         ) : (
                             // 투표가 안 되었을 때
                             <VoteSection>

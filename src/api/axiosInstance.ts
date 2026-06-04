@@ -18,6 +18,11 @@ api.interceptors.request.use((config) => {
     // 우리가 프론트에서 갖고 있는 토큰 정보를 가지고서
     // Request의 HTTP 메세지 헤더에 넣어줘야 함
     const { token } = useAuthStore.getState();
+
+    // 이 interceptor는 이 axiosInstance를 사용하는 모든 요청에 발동되는 기능이고,
+    // 사용자는 로그인이 되어져 있을 수도 있고, 없을 수도 있음
+    // -> token 이 없을 수도 있음
+    // 따라서 token이 있을 때만 헤더에 추가해줘야 함
     if (token) {
         // token이 있을 때에만 요청 헤더에 토큰 정보를 기재해서 보냄
         // config.headers <- axios를 사용할 때 HTTP 메세지 헤더는 이렇게 접근 가능

@@ -72,7 +72,7 @@ const PageNumButton = styled.button<{ $isActive: boolean }>`
     background-color: ${props =>
         props.$isActive ? props.theme.colors.primary : props.theme.colors.background.paper};
     color: ${props => (props.$isActive ? "#FFFFFF" : props.theme.colors.text.default)};
-    border-radius: 6px;
+    border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s;
 

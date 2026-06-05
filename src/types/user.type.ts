@@ -12,3 +12,10 @@ export const Gender = {
 }
 
 export type GenderType = typeof Gender[keyof typeof Gender];
+
+export const Role = {
+    ADMIN: "ADMIN",
+    USER: "USER",
+}
+
+export type RoleType = typeof Role[keyof typeof Role];

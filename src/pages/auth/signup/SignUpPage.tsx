@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styled from "styled-components";
 import { Gender } from "../../../types/user.type.ts";
 import Button from "../../../components/common/Button.tsx";
+import {useNavigate} from "react-router";
 
 function SignUpPage() {
     // 회원가입 화면
@@ -26,13 +27,55 @@ function SignUpPage() {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors, isSubmitting },
     } = useForm<SignUpInputType>({
         resolver: zodResolver(signUpSchema),
         mode: "onBlur", // 언제 검증할 것인지
     });
 
-    const onSubmit = () => {};
+    const navigate = useNavigate();
+
+    const onSubmit = async (data: SignUpInputType) => {
+        try {
+        const { passwordConfirm, ...submitData } = data;
+
+        if (!passwordConfirm) {
+            return;
+        }
+
+        const response = await fetch("http://localhost:8000/user/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(submitData),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || "회원가입 중 오류가 발생했습니다.");
+        }
+
+        alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+        navigate("/auth/signin");
+        } catch (error) {
+            if (error instanceof Error) {
+                const errorMessage = error.message;
+                if (errorMessage === "이미 사용중인 아이디입니다.") {
+                    setError("username", { message: errorMessage });
+                } else if (errorMessage === "이미 사용중인 이메일입니다.") {
+                    setError("email", { message: errorMessage });
+                } else if (errorMessage === "이미 사용중인 닉네임입니다.") {
+                    setError("nickname", { message: errorMessage });
+                } else {
+                    setError("root", { message: errorMessage });
+                }
+            }
+
+            console.log(error);
+            setError("root", { message: "회원가입에 실패했습니다. 다시 시도해주세요." });
+        }
+    };
 
     return (
         <AuthContainer>

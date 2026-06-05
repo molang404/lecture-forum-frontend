@@ -19,7 +19,7 @@ export const signUpSchema = z.object({
     email: z.email("올바른 이메일 형식이 아닙니다."),
     phoneNumber: z.string().regex(phoneRegex, "올바른 전화번호 형식이 아닙니다.").optional(),
     birthdate: z.string().optional(),
-    gender: z.enum(Gender),
+    gender: z.enum(Gender, "성별은 필수값입니다."),
 })
     .refine(data => data.password === data.passwordConfirm, {
         path: ["passwordConfirm"],

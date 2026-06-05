@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import HomePage from "../pages/HomePage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
-import MainLayout from "../;ayouts/MainLayout.tsx";
+import MainLayout from "../layouts/MainLayout.tsx";
 
 const router = createBrowserRouter([
     {

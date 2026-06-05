@@ -65,7 +65,7 @@ const PageNumButton = styled.button<{ $isActive: boolean }>`
     align-items: center;
     min-width: 28px;
     height: 28px;
-    padding: 0 6px;
+    padding: 0 6px 2px 6px;
     font-size: 13px;
     font-weight: 600;
     border: 1px solid

@@ -7,6 +7,11 @@ const createReply = async (postId: number, content: string) => {
     return response.data.data;
 };
 
+const updateReply = async (replyId: number, content: string) => {
+    const response = await axiosInstance.patch(`/reply/${replyId}`, { content });
+    return response.data.data;
+}
+
 const getRepliesByPostId = async (
     postId: number,
     page?: number,
@@ -42,4 +47,5 @@ export default {
     createReply,
     getRepliesByPostId,
     deleteReply,
+    updateReply,
 };

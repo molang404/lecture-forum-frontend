@@ -8,15 +8,19 @@ import {
     createReplySchema,
 } from "../../../schemas/reply/createReplySchema.ts";
 import replyApi from "../../../api/user/replyApi.ts";
-import { useEffect } from "react";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
 
 interface Props {
     postId: number;
     loadReplies: (page: number) => Promise<void>;
     isLoggedIn: boolean;
+    isEditing?: boolean;
+    initialContent?: string;
+    replyId?: number;
+    setIsEditing?: Dispatch<SetStateAction<boolean>>;
 }
 
-function ReplyForm({ postId, loadReplies, isLoggedIn }: Props) {
+function ReplyForm({ postId, loadReplies, isLoggedIn, isEditing, initialContent, replyId, setIsEditing }: Props) {
     // 코드를 옮겨 놓고 보니
     // postId 필요하고, isLoggedIN 필요하고, loadReplies 함수 필요
 
@@ -28,6 +32,9 @@ function ReplyForm({ postId, loadReplies, isLoggedIn }: Props) {
     } = useForm({
         resolver: zodResolver(createReplySchema),
         mode: "onBlur",
+        defaultValues: {
+            content: initialContent,
+        },
     });
 
     useEffect(() => {
@@ -38,7 +45,15 @@ function ReplyForm({ postId, loadReplies, isLoggedIn }: Props) {
 
     const onSubmit = async (data: CreateReplyInputType) => {
         try {
-            await replyApi.createReply(postId, data.content);
+            if (isEditing) {
+                if (!replyId || !setIsEditing) {
+                    throw new Error("댓글 ID가 유효하지 않습니다.");
+                }
+                await replyApi.updateReply(replyId, data.content);
+                setIsEditing(false);
+            } else {
+                await replyApi.createReply(postId, data.content);
+            }
             reset({
                 postId,
                 content: "",
@@ -48,7 +63,7 @@ function ReplyForm({ postId, loadReplies, isLoggedIn }: Props) {
             await replyApi.getRepliesByPostId(postId);
         } catch (error) {
             console.log("댓글 작성 실패 : ", error);
-            alert("댓글 작성 중 오류가 발생했습니다.");
+            alert(isEditing ? "댓글 수정 중 오류가 발생했습니다." : "댓글 작성 중 오류가 발생했습니다.");
         }
     };
 
@@ -73,7 +88,10 @@ function ReplyForm({ postId, loadReplies, isLoggedIn }: Props) {
                 type={"submit"}
                 style={{ minWidth: "100px" }}
                 disabled={!isLoggedIn || isSubmitting}>
-                {isSubmitting ? "등록 중..." : "댓글 등록"}
+                {isSubmitting ?
+                    isEditing ? "저장 중..." : "등록 중..."
+                    :
+                    isEditing ? "수정 완료" : "댓글 등록"}
             </Button>
         </StyledReplyForm>
     );

@@ -72,6 +72,20 @@ export const ReplyHeader = styled.div`
         }
     }
 
+    .modify-btn {
+        background: ${props => props.theme.colors.warning};
+        border-radius: 4px;
+        border: none;
+        color: #ffffff;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 4px 8px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     .delete-btn {
         background: ${props => props.theme.colors.error};
         border-radius: 4px;

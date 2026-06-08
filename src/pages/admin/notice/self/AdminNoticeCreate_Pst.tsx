@@ -15,7 +15,7 @@ import TextareaGroup from "../../../../components/common/textarea/TextareaGroup.
 import { AdminButtonGroup } from "../../../../components/admin/admin.style.tsx";
 import Button from "../../../../components/common/button/Button.tsx";
 
-function AdminNoticeCreate_Me() {
+function AdminNoticeCreate_Pst() {
     const navigate = useNavigate();
 
     const {
@@ -78,4 +78,4 @@ function AdminNoticeCreate_Me() {
     );
 }
 
-export default AdminNoticeCreate_Me;
+export default AdminNoticeCreate_Pst;

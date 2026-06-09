@@ -97,20 +97,20 @@ function PostDetailPage() {
 
                 <PostVote post={post} loadPost={loadPost} />
 
-                <AdminButtonGroup>
+                <AdminButtonGroup style={{ justifyContent: "space-between" }}>
                     <Button color={"secondary"} variant={"contained"} onClick={() => navigate(-1)}>
                         목록으로
                     </Button>
 
                     {user?.id === post.user.id && (
-                        <>
+                        <div style={{ display: "flex", gap: "10px" }}>
                             <Button color={"warning"} variant={"contained"}>
                                 수정
                             </Button>
                             <Button color={"error"} variant={"contained"}>
                                 삭제
                             </Button>
-                        </>
+                        </div>
                     )}
                 </AdminButtonGroup>
 

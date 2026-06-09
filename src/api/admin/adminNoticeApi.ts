@@ -16,7 +16,7 @@ const updateNotice = async (noticeId: number, input: NoticeInputType): Promise<N
 };
 
 const deleteNotice = async (noticeId: number): Promise<void> => {
-    await axiosInstance.delete(`/admin/notice/${noticeId}`);     // 성공 / 실패
+    await axiosInstance.delete(`/admin/notice/${noticeId}`); // HTTP status 200 성공/ HTTP status 500 실패
 };
 
 export default {

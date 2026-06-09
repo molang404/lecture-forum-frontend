@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Notice } from "../../../../types/notice.type.ts";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import NoticeApi from "../../../../api/user/noticeApi.ts";
 import {
     DetailContent,
@@ -25,23 +25,21 @@ function AdminNoticeDetailPage_Me() {
     const { id } = useParams<{ id: string }>();
     const { user } = useAuthStore();
 
-    const loadNotice = useCallback(async () => {
-        try {
-            const data = await NoticeApi.getNoticeById(Number(id));
-            setNotice(data);
-        } catch (error) {
-            console.log(error);
-            alert("공지사항을 불러오는 중 오류가 발생했습니다.");
-            navigate(-1);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [id, navigate]);
+    useEffect(() => {const loadNotice = async () => {
+            try {
+                const data = await NoticeApi.getNoticeById(Number(id));
+                setNotice(data);
+            } catch (error) {
+                console.log(error);
+                alert("공지사항을 불러오는 중 오류가 발생했습니다.");
+                navigate("-1");
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         loadNotice().then(() => {});
-    }, [loadNotice]);
+    }, [id, navigate]);
 
     if (isLoading) {
         return (
@@ -61,8 +59,7 @@ function AdminNoticeDetailPage_Me() {
         try {
             await adminNoticeApi.deleteNotice(id);
             alert("공지사항이 성공적으로 삭제되었습니다.");
-
-            loadNotice().then(() => {});
+            navigate("/admin/notice");
         } catch (error) {
             console.log(error);
             alert("공지사항 삭제 중 오류가 발생했습니다.");
@@ -94,14 +91,17 @@ function AdminNoticeDetailPage_Me() {
 
                 <DetailContent>{notice.content}</DetailContent>
 
-                <AdminButtonGroup>
-                    <Button color={"primary"} variant={"contained"} onClick={() => navigate(-1)}>
+                <AdminButtonGroup style={{ justifyContent: "space-between" }}>
+                    <Button color={"secondary"} variant={"contained"} onClick={() => navigate(-1)}>
                         목록으로
                     </Button>
 
                     {user?.role === Role.ADMIN && (
-                        <>
-                            <Button color={"warning"} variant={"contained"} as={Link} to={"/admin/notice/update"}>
+                        <div style={{ display: "flex", gap: "10px" }}>
+                            <Button
+                                color={"warning"}
+                                variant={"contained"}
+                                onClick={() => navigate(`/admin/notice/update/${id}`)}>
                                 수정
                             </Button>
                             <Button
@@ -110,7 +110,7 @@ function AdminNoticeDetailPage_Me() {
                                 onClick={() => handleDelete(Number(id))}>
                                 삭제
                             </Button>
-                        </>
+                        </div>
                     )}
                 </AdminButtonGroup>
             </DetailWrapper>

@@ -97,7 +97,9 @@ function PostDetailPage() {
 
                 <PostVote post={post} loadPost={loadPost} />
 
-                <AdminButtonGroup style={{ justifyContent: "space-between" }}>
+                <AdminButtonGroup $align={
+                    user?.id === post.user.id ? "space-between" : "right"
+                }>
                     <Button color={"secondary"} variant={"contained"} onClick={() => navigate(-1)}>
                         목록으로
                     </Button>

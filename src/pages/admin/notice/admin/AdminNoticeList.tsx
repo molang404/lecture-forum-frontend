@@ -59,7 +59,7 @@ function AdminNoticeList() {
     return (
         <AdminContainer>
             <AdminPageHeader>
-                <AdminTitle>공지사항 관리</AdminTitle>
+                <AdminTitle>공지사항 관리 <small>{total}개</small></AdminTitle>
                 <Button
                     color={"primary"}
                     variant={"contained"}

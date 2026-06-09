@@ -87,22 +87,24 @@ function AdminNoticeDetailPage() {
 
                 <DetailContent>{notice.content}</DetailContent>
 
-                <AdminButtonGroup style={{ marginTop: "40px" }}>
+                <AdminButtonGroup $align={"space-between"} style={{ marginTop: "40px" }}>
                     <Button color={"secondary"} variant={"contained"} onClick={() => navigate(-1)}>
                         목록으로
                     </Button>
-                    <Button
-                        color={"warning"}
-                        variant={"contained"}
-                        onClick={() => navigate(`/admin/notice/update/${id}`)}>
-                        수정
-                    </Button>
-                    <Button
-                        color={"error"}
-                        variant={"contained"}
-                        onClick={() => handleDeleteNotice()}>
-                        삭제
-                    </Button>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                        <Button
+                            color={"warning"}
+                            variant={"contained"}
+                            onClick={() => navigate(`/admin/notice/update/${id}`)}>
+                            수정
+                        </Button>
+                        <Button
+                            color={"error"}
+                            variant={"contained"}
+                            onClick={() => handleDeleteNotice()}>
+                            삭제
+                        </Button>
+                    </div>
                 </AdminButtonGroup>
             </DetailWrapper>
         </PostContainer>

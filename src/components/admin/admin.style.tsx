@@ -17,6 +17,15 @@ export const AdminPageHeader = styled.div`
 export const AdminTitle = styled.h2`
     font-size: 24px;
     font-weight: 700;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+
+    small {
+        font-size: 14px;
+        font-weight: 400;
+        color: ${props => props.theme.colors.secondary};
+    }
 `;
 
 export const AdminLoadingText = styled.div`
@@ -67,10 +76,10 @@ export const AdminForm = styled.form<{ $wrap?: boolean }>`
 // 그렇게 들어오는 props.$align 의 기본값을 설정해주기 위해서는
 // 소괄호를 생략하지 않고 (props) => 로 써줘야 되며,
 // 구조분해할당을 통해 ({ $align }) => 로 써줘야 함
-export const AdminButtonGroup = styled.div<{ $align?: "left" | "right" | "center" }>`
+export const AdminButtonGroup = styled.div<{ $align?: "left" | "right" | "center" | "space-between" }>`
     display: flex;
     gap: 12px;
     align-items: center;
     justify-content: ${({ $align = "right" }) =>
-        $align === "right" ? "flex-end" : $align === "center" ? "center" : "flex-start"};
+        $align === "right" ? "flex-end" : $align === "center" ? "center" : $align === "left" ? "flex-start" : "space-between"};
 `;

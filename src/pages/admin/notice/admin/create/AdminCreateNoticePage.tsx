@@ -1,19 +1,19 @@
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type NoticeInputType, noticeSchema } from "../../../../schemas/notice/noticeSchema.ts";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
+import { type NoticeInputType, noticeSchema } from "../../../../../schemas/notice/noticeSchema.ts";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
 import {
     AdminButtonGroup,
     AdminContainer,
     AdminForm,
     AdminPageHeader,
     AdminTitle,
-} from "../../../../components/admin/admin.style.tsx";
-import Card from "../../../../components/common/card/Card.tsx";
-import InputGroup from "../../../../components/common/input/InputGroup.tsx";
-import TextareaGroup from "../../../../components/common/textarea/TextareaGroup.tsx";
-import Button from "../../../../components/common/button/Button.tsx";
+} from "../../../../../components/admin/admin.style.tsx";
+import Card from "../../../../../components/common/card/Card.tsx";
+import InputGroup from "../../../../../components/common/input/InputGroup.tsx";
+import TextareaGroup from "../../../../../components/common/textarea/TextareaGroup.tsx";
+import Button from "../../../../../components/common/button/Button.tsx";
 
 function AdminCreateNoticePage() {
     // 이것은 공지 사항 게시물을 등록하기 위해 필요한 화면

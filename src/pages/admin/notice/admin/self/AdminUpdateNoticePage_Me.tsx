@@ -5,18 +5,18 @@ import {
     AdminLoadingText,
     AdminPageHeader,
     AdminTitle,
-} from "../../../../components/admin/admin.style.tsx";
-import Card from "../../../../components/common/card/Card.tsx";
-import InputGroup from "../../../../components/common/input/InputGroup.tsx";
-import TextareaGroup from "../../../../components/common/textarea/TextareaGroup.tsx";
-import Button from "../../../../components/common/button/Button.tsx";
+} from "../../../../../components/admin/admin.style.tsx";
+import Card from "../../../../../components/common/card/Card.tsx";
+import InputGroup from "../../../../../components/common/input/InputGroup.tsx";
+import TextareaGroup from "../../../../../components/common/textarea/TextareaGroup.tsx";
+import Button from "../../../../../components/common/button/Button.tsx";
 import { Link, useNavigate, useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type NoticeInputType, noticeSchema } from "../../../../schemas/notice/noticeSchema.ts";
+import { type NoticeInputType, noticeSchema } from "../../../../../schemas/notice/noticeSchema.ts";
 import { useEffect, useState } from "react";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
-import noticeApi from "../../../../api/user/noticeApi.ts";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
+import noticeApi from "../../../../../api/user/noticeApi.ts";
 
 function AdminUpdateNoticePage_Me() {
     const { id } = useParams<{ id: string }>();

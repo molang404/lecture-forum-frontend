@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Notice } from "../../../../types/notice.type.ts";
+import type { Notice } from "../../../../../types/notice.type.ts";
 import { useNavigate, useParams } from "react-router";
-import NoticeApi from "../../../../api/user/noticeApi.ts";
+import NoticeApi from "../../../../../api/user/noticeApi.ts";
 import {
     DetailContent,
     DetailHeader,
@@ -10,12 +10,12 @@ import {
     DetailWrapper,
     LoadingText,
     PostContainer,
-} from "../../../../components/post/post.style.tsx";
-import { useAuthStore } from "../../../../stores/auth/authStore.ts";
-import { Role } from "../../../../types/user.type.ts";
-import Button from "../../../../components/common/button/Button.tsx";
-import { AdminButtonGroup } from "../../../../components/admin/admin.style.tsx";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
+} from "../../../../../components/post/post.style.tsx";
+import { useAuthStore } from "../../../../../stores/auth/authStore.ts";
+import { Role } from "../../../../../types/user.type.ts";
+import Button from "../../../../../components/common/button/Button.tsx";
+import { AdminButtonGroup } from "../../../../../components/admin/admin.style.tsx";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
 
 function AdminNoticeDetailPage_Me() {
     const navigate = useNavigate();

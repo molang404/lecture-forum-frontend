@@ -100,6 +100,10 @@ function MainHeader() {
                 </Nav>
 
                 <NavGroup>
+                    <Button color={"primary"} variant={"text"} as={Link} to={"/notice"}>
+                        공지사항
+                    </Button>
+                    
                     <Button color={"primary"} variant={"icon"} onClick={onChangeTheme}>
                         {theme === "light" ? <IoSunny size={20} /> : <IoMoon size={20} />}
                     </Button>

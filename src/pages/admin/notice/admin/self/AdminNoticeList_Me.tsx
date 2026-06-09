@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { Notice } from "../../../../types/notice.type.ts";
+import type { Notice } from "../../../../../types/notice.type.ts";
 import {
     AdminButtonGroup,
     AdminContainer,
@@ -9,15 +9,15 @@ import {
     AdminTableWrapper,
     AdminTd,
     AdminTh,
-} from "../../../../components/admin/admin.style.tsx";
-import Button from "../../../../components/common/button/Button.tsx";
+} from "../../../../../components/admin/admin.style.tsx";
+import Button from "../../../../../components/common/button/Button.tsx";
 import { Link, useSearchParams } from "react-router";
-import Card from "../../../../components/common/card/Card.tsx";
-import NoticeApi from "../../../../api/user/noticeApi.ts";
+import Card from "../../../../../components/common/card/Card.tsx";
+import NoticeApi from "../../../../../api/user/noticeApi.ts";
 import { FiTrash } from "react-icons/fi";
-import Pagination from "../../../../components/common/pagination/Pagination.tsx";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
-import { PostTitle } from "../../../../components/post/post.style.tsx";
+import Pagination from "../../../../../components/common/pagination/Pagination.tsx";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
+import { PostTitle } from "../../../../../components/post/post.style.tsx";
 
 function AdminNoticeList_Me() {
     const [list, setList] = useState<Notice[]>([]);

@@ -1,19 +1,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type NoticeInputType, noticeSchema } from "../../../../schemas/notice/noticeSchema.ts";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
+import { type NoticeInputType, noticeSchema } from "../../../../../schemas/notice/noticeSchema.ts";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
 import { Link, useNavigate } from "react-router";
 import {
     FormWrapper,
     PostContainer,
     PostPageHeader,
     PostTitle,
-} from "../../../../components/post/post.style.tsx";
+} from "../../../../../components/post/post.style.tsx";
 import { FiBell } from "react-icons/fi";
-import InputGroup from "../../../../components/common/input/InputGroup.tsx";
-import TextareaGroup from "../../../../components/common/textarea/TextareaGroup.tsx";
-import { AdminButtonGroup } from "../../../../components/admin/admin.style.tsx";
-import Button from "../../../../components/common/button/Button.tsx";
+import InputGroup from "../../../../../components/common/input/InputGroup.tsx";
+import TextareaGroup from "../../../../../components/common/textarea/TextareaGroup.tsx";
+import { AdminButtonGroup } from "../../../../../components/admin/admin.style.tsx";
+import Button from "../../../../../components/common/button/Button.tsx";
 
 function AdminNoticeCreate_Pst() {
     const navigate = useNavigate();

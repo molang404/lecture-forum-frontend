@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Notice } from "../../../types/notice.type.ts";
+import type { Notice } from "../../../../types/notice.type.ts";
 import { Link, useSearchParams } from "react-router";
-import NoticeApi from "../../../api/user/noticeApi.ts";
+import NoticeApi from "../../../../api/user/noticeApi.ts";
 import {
     AdminContainer,
     AdminLoadingText,
@@ -11,10 +11,10 @@ import {
     AdminTd,
     AdminTh,
     AdminTitle,
-} from "../../../components/admin/admin.style.tsx";
-import Button from "../../../components/common/button/Button.tsx";
-import Card from "../../../components/common/card/Card.tsx";
-import Pagination from "../../../components/common/pagination/Pagination.tsx";
+} from "../../../../components/admin/admin.style.tsx";
+import Button from "../../../../components/common/button/Button.tsx";
+import Card from "../../../../components/common/card/Card.tsx";
+import Pagination from "../../../../components/common/pagination/Pagination.tsx";
 
 function AdminNoticeList() {
     const [list, setList] = useState<Notice[]>([]);

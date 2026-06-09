@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
-import type { Notice } from "../../../../types/notice.type.ts";
-import noticeApi from "../../../../api/user/noticeApi.ts";
+import type { Notice } from "../../../../../types/notice.type.ts";
+import noticeApi from "../../../../../api/user/noticeApi.ts";
 import {
     DetailContent,
     DetailHeader,
@@ -10,10 +10,10 @@ import {
     DetailWrapper,
     LoadingText,
     PostContainer,
-} from "../../../../components/post/post.style.tsx";
-import { AdminButtonGroup } from "../../../../components/admin/admin.style.tsx";
-import Button from "../../../../components/common/button/Button.tsx";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
+} from "../../../../../components/post/post.style.tsx";
+import { AdminButtonGroup } from "../../../../../components/admin/admin.style.tsx";
+import Button from "../../../../../components/common/button/Button.tsx";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
 
 function AdminNoticeDetailPage() {
     const navigate = useNavigate();

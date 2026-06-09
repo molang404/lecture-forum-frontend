@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type NoticeInputType, noticeSchema } from "../../../../schemas/notice/noticeSchema.ts";
+import { type NoticeInputType, noticeSchema } from "../../../../../schemas/notice/noticeSchema.ts";
 import { useEffect, useState } from "react";
-import noticeApi from "../../../../api/user/noticeApi.ts";
+import noticeApi from "../../../../../api/user/noticeApi.ts";
 import {
     AdminButtonGroup,
     AdminContainer,
@@ -11,12 +11,12 @@ import {
     AdminLoadingText,
     AdminPageHeader,
     AdminTitle,
-} from "../../../../components/admin/admin.style.tsx";
-import Card from "../../../../components/common/card/Card.tsx";
-import InputGroup from "../../../../components/common/input/InputGroup.tsx";
-import TextareaGroup from "../../../../components/common/textarea/TextareaGroup.tsx";
-import Button from "../../../../components/common/button/Button.tsx";
-import adminNoticeApi from "../../../../api/admin/adminNoticeApi.ts";
+} from "../../../../../components/admin/admin.style.tsx";
+import Card from "../../../../../components/common/card/Card.tsx";
+import InputGroup from "../../../../../components/common/input/InputGroup.tsx";
+import TextareaGroup from "../../../../../components/common/textarea/TextareaGroup.tsx";
+import Button from "../../../../../components/common/button/Button.tsx";
+import adminNoticeApi from "../../../../../api/admin/adminNoticeApi.ts";
 
 function AdminNoticeUpdatePage() {
     const navigate = useNavigate();

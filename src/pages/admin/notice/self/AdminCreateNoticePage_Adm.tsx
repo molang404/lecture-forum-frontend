@@ -41,7 +41,7 @@ function AdminCreateNoticePage_Adm() {
     return (
         <AdminContainer>
             <AdminPageHeader>
-                <AdminTitle>새 공지사항 추가</AdminTitle>
+                <AdminTitle>새 공지사항 등록</AdminTitle>
             </AdminPageHeader>
 
             <Card>

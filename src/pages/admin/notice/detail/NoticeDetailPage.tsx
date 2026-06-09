@@ -2,7 +2,15 @@ import { useNavigate, useParams } from "react-router";
 import type { Notice } from "../../../../types/notice.type.ts";
 import { useEffect, useState } from "react";
 import NoticeApi from "../../../../api/user/noticeApi.ts";
-import { DetailContent, DetailHeader, DetailInfo, DetailTitle, DetailWrapper, LoadingText, PostContainer } from "../../../../components/post/post.style.tsx";
+import {
+    DetailContent,
+    DetailHeader,
+    DetailInfo,
+    DetailTitle,
+    DetailWrapper,
+    LoadingText,
+    PostContainer,
+} from "../../../../components/post/post.style.tsx";
 import { AdminButtonGroup } from "../../../../components/admin/admin.style.tsx";
 import Button from "../../../../components/common/button/Button.tsx";
 
@@ -10,9 +18,9 @@ function NoticeDetailPage() {
     const navigate = useNavigate();
     const [notice, setNotice] = useState<Notice | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    
+
     const { id } = useParams<{ id: string }>();
-    
+
     useEffect(() => {
         const loadNotice = async () => {
             try {
@@ -21,23 +29,25 @@ function NoticeDetailPage() {
             } catch (error) {
                 console.log(error);
                 alert("공지사항을 불러오는 중 오류가 발생했습니다.");
-                navigate("/notice");
+                navigate(-1);
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
         loadNotice().then(() => {});
     }, [id, navigate]);
-    
+
     if (isLoading) {
-        return <PostContainer>
-            <LoadingText>공지사항 내용을 불러오는 중입니다...</LoadingText>
-        </PostContainer>
+        return (
+            <PostContainer>
+                <LoadingText>공지사항 내용을 불러오는 중입니다...</LoadingText>
+            </PostContainer>
+        );
     }
-    
+
     if (!notice) return;
-    
+
     return (
         <PostContainer>
             <DetailWrapper>
@@ -63,7 +73,7 @@ function NoticeDetailPage() {
 
                 <DetailContent>{notice.content}</DetailContent>
 
-                <AdminButtonGroup>
+                <AdminButtonGroup style={{ marginTop: "40px" }}>
                     <Button color={"secondary"} variant={"contained"} onClick={() => navigate(-1)}>
                         목록으로
                     </Button>

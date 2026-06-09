@@ -15,6 +15,10 @@ import {
 import Pagination from "../../../components/common/pagination/Pagination.tsx";
 
 function NoticeListPage() {
+    // req.params (X)
+    // req.query  (page - 선택값)
+    // user       (X)
+
     const [searchParams, setSearchParams] = useSearchParams();
     const page = Number(searchParams.get("page")) || 1;
     const size = Number(searchParams.get("size")) || 20;
@@ -33,19 +37,20 @@ function NoticeListPage() {
                 setTotal(data.total);
             } catch (error) {
                 console.log(error);
-                alert("게시글을 불러오는 중 오류가 발생했습니다.");
+                alert("공지사항을 불러오는 중 오류가 발생했습니다.");
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
+        window.scrollTo({ top: 0, behavior: "smooth" });
         loadNotices().then(() => {});
     }, [page, size]);
 
     const onPageChange = (page: number) => {
         searchParams.set("page", page.toString());
         setSearchParams(searchParams);
-    }
+    };
 
     return (
         <PostContainer>
@@ -57,7 +62,7 @@ function NoticeListPage() {
 
             <BoardWrapper>
                 {isLoading ? (
-                    <LoadingText>공지사항을 불러오는 중입니다...</LoadingText>
+                    <LoadingText>게시글을 불러오는 중입니다...</LoadingText>
                 ) : (
                     <BoardTable>
                         <thead>
@@ -71,7 +76,7 @@ function NoticeListPage() {
                             {list.length === 0 && (
                                 <tr>
                                     <BoardTd colSpan={3} style={{ padding: "100px 0" }}>
-                                        아직 작성된 공지사항이 없습니다.
+                                        등록된 공지사항이 없습니다.
                                     </BoardTd>
                                 </tr>
                             )}

@@ -66,9 +66,9 @@ function AdminInquiryListPage() {
                             <thead>
                                 <tr>
                                     <AdminTh $width={"10%"}>ID</AdminTh>
-                                    <AdminTh $width={"65%"}>제목</AdminTh>
+                                    <AdminTh $width={"60%"}>제목</AdminTh>
+                                    <AdminTh $width={"20%"}>작성일</AdminTh>
                                     <AdminTh $width={"10%"}>작성자</AdminTh>
-                                    <AdminTh $width={"15%"}>작성일</AdminTh>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,10 +89,10 @@ function AdminInquiryListPage() {
                                                 {item.title}
                                             </Link>
                                         </AdminTd>
-                                        <AdminTd>{item.user.nickname}</AdminTd>
                                         <AdminTd>
                                             {new Date(item.createdAt).toLocaleDateString()}
                                         </AdminTd>
+                                        <AdminTd>{item.user.nickname}</AdminTd>
                                     </tr>
                                 ))}
                             </tbody>

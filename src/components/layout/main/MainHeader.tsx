@@ -109,7 +109,7 @@ function MainHeader() {
                     </Button>
                     { isLoggedIn ? (
                         <>
-                            <Button color={"primary"} variant={"icon"} as={Link} to={"/profile"}>
+                            <Button color={"primary"} variant={"icon"} as={Link} to={"/my"}>
                                 <FiUser size={20} />
                             </Button>
                             {user?.role === Role.ADMIN && (

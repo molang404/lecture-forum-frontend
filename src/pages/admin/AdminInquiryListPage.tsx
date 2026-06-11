@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Inquiry } from "../../types/inquiry.type.ts";
 import { Link, useSearchParams } from "react-router";
-import AdminInquiryApi from "../../api/admin/adminInquiryApi.ts";
 import {
     AdminContainer,
     AdminLoadingText,
@@ -14,6 +13,7 @@ import {
 } from "../../components/admin/admin.style.tsx";
 import Card from "../../components/common/card/Card.tsx";
 import Pagination from "../../components/common/pagination/Pagination.tsx";
+import adminInquiryApi from "../../api/admin/adminInquiryApi.ts";
 
 function AdminInquiryListPage() {
     const [list, setList] = useState<Inquiry[]>([]);
@@ -32,22 +32,23 @@ function AdminInquiryListPage() {
         setSearchParams(searchParams);
     };
 
+    const loadInquiries = async (page: number) => {
+        try {
+            const data = await adminInquiryApi.getInquiryList(page, SIZE);
+            setList(data.list);
+            setTotal(data.total);
+        } catch (error) {
+            console.log(error);
+            alert("문의 목록을 불러오는데 실패했습니다.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
-        const loadInquiry = async (page: number) => {
-            try {
-                const data = await AdminInquiryApi.getInquiryList(page, SIZE);
-                setList(data.list);
-                setTotal(data.total);
-            } catch (error) {
-                console.log(error);
-                alert("문의사항 목록을 불러오는데 실패했습니다.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        loadInquiry(page).then(() => {});
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadInquiries(page).then(() => {});
     }, [page]);
 
     return (

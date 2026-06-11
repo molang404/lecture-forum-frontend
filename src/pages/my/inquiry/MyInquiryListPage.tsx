@@ -14,6 +14,8 @@ import {
 } from "../../../components/post/post.style.tsx";
 import Pagination from "../../../components/common/pagination/Pagination.tsx";
 import Button from "../../../components/common/button/Button.tsx";
+import { FaCheckSquare } from "react-icons/fa";
+import { CiNoWaitingSign } from "react-icons/ci";
 
 function MyInquiryListPage() {
     const [searchParams, setSearchParams] = useSearchParams("");
@@ -55,11 +57,7 @@ function MyInquiryListPage() {
                 <PostTitle>
                     1:1 문의 <small>총 {total}개의 글</small>
                 </PostTitle>
-                <Button
-                    color={"primary"}
-                    variant={"contained"}
-                    as={Link}
-                    to={"/my/inquiry/create"}>
+                <Button color={"primary"} variant={"contained"} as={Link} to={"/my/inquiry/create"}>
                     문의 남기기
                 </Button>
             </PostPageHeader>
@@ -88,17 +86,27 @@ function MyInquiryListPage() {
                                 <tr key={item.id}>
                                     <BoardTd>{item.id}</BoardTd>
                                     <BoardTd className={"title-cell"}>
-                                        <Link to={`/inquiry/${item.id}`}>{item.title}</Link>
+                                        <Link to={`/my/inquiry/${item.id}`}>{item.title}</Link>
                                     </BoardTd>
                                     <BoardTd>
                                         {new Date(item.createdAt).toLocaleString("ko-KR", {
-                                            year: "numeric",
+                                            year: "2-digit",
                                             month: "2-digit",
                                             day: "2-digit",
                                         })}
                                     </BoardTd>
                                     <BoardTd>
-                                        {item.answer ? "O" : "--"}
+                                        {item.answer ? (
+                                            <FaCheckSquare
+                                                size={18}
+                                                style={{ color: "#34D399" }}
+                                            />
+                                        ) : (
+                                            <CiNoWaitingSign
+                                                size={18}
+                                                style={{ color: "#EF4444" }}
+                                            />
+                                        )}
                                     </BoardTd>
                                 </tr>
                             ))}

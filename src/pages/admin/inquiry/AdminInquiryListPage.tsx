@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Inquiry } from "../../types/inquiry.type.ts";
+import type { Inquiry } from "../../../types/inquiry.type.ts";
 import { Link, useSearchParams } from "react-router";
 import {
     AdminContainer,
@@ -10,10 +10,10 @@ import {
     AdminTd,
     AdminTh,
     AdminTitle,
-} from "../../components/admin/admin.style.tsx";
-import Card from "../../components/common/card/Card.tsx";
-import Pagination from "../../components/common/pagination/Pagination.tsx";
-import adminInquiryApi from "../../api/admin/adminInquiryApi.ts";
+} from "../../../components/admin/admin.style.tsx";
+import Card from "../../../components/common/card/Card.tsx";
+import Pagination from "../../../components/common/pagination/Pagination.tsx";
+import adminInquiryApi from "../../../api/admin/adminInquiryApi.ts";
 
 function AdminInquiryListPage() {
     const [list, setList] = useState<Inquiry[]>([]);

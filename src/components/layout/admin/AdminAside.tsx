@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link, useLocation } from "react-router";
-import { FiBell, FiGrid, FiHome, FiUser } from "react-icons/fi";
+import { FiBell, FiGrid, FiHome, FiMessageSquare, FiUser } from "react-icons/fi";
 
 const adminNavList = [
     {
@@ -17,6 +17,11 @@ const adminNavList = [
         path: "/admin/notice",
         label: "공지사항 관리",
         icon: <FiBell size={18} />,
+    },
+    {
+        path: "/admin/inquiry",
+        label: "1:1 문의 관리",
+        icon: <FiMessageSquare size={18} />,
     },
     {
         path: "/",
@@ -89,7 +94,7 @@ const MenuItem = styled(Link)<{ $isActive: boolean }>`
         props.$isActive ? props.theme.colors.primary : props.theme.colors.text.default};
     background-color: ${props =>
         props.$isActive ? `${props.theme.colors.primary}15` : "transparent"};
-                            // #3B82F615
+    // #3B82F615
     border-left: 4px solid
         ${props => (props.$isActive ? props.theme.colors.primary : "transparent")};
     transition: all 0.2s;

@@ -11,8 +11,9 @@ import {
     LoadingText,
     PostContainer,
 } from "../../../../components/post/post.style.tsx";
-import { AdminButtonGroup } from "../../../../components/admin/admin.style.tsx";
+import { AdminButtonGroup, AnswerHeader } from "../../../../components/admin/admin.style.tsx";
 import Button from "../../../../components/common/button/Button.tsx";
+import { AnswerBox } from "../../../../components/inquiry/inquiry.style.ts";
 
 function MyInquiryDetailPage() {
     const navigate = useNavigate();
@@ -82,7 +83,20 @@ function MyInquiryDetailPage() {
 
                 <DetailContent>{inquiry.content}</DetailContent>
 
-                <AdminButtonGroup $align={!inquiry.answer ? "space-between" : "right"}>
+                {inquiry.answer && (
+                    <AnswerBox>
+                        <AnswerHeader>
+                            <span className={"admin-label"}>관리자 답변</span>
+                            <span className={"answer-date"}>
+                                {inquiry.answeredAt &&
+                                    new Date(inquiry.answeredAt).toLocaleString()}
+                            </span>
+                        </AnswerHeader>
+                        <DetailContent className={"answer-content"}>{inquiry.answer}</DetailContent>
+                    </AnswerBox>
+                )}
+
+                <AdminButtonGroup style={{ marginTop: "40px" }} $align={!inquiry.answer ? "space-between" : "right"}>
                     <Button
                         color={"secondary"}
                         variant={"contained"}

@@ -7,13 +7,15 @@ import {
 } from "../admin/admin.style.tsx";
 import Button from "../common/button/Button.tsx";
 import adminInquiryApi from "../../api/admin/adminInquiryApi.ts";
+import type { Dispatch, SetStateAction } from "react";
 
 interface Props {
     inquiry: Inquiry;
     reload: () => Promise<void>;
+    setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
 
-function AdminInquiryAnswerBox({ inquiry, reload }: Props) {
+function AdminInquiryAnswerBox({ inquiry, reload, setIsEdit }: Props) {
     const handleDeleteAnswer = async () => {
         try {
             await adminInquiryApi.deleteInquiryAnswer(inquiry.id);
@@ -25,6 +27,7 @@ function AdminInquiryAnswerBox({ inquiry, reload }: Props) {
             alert("관리자 답변 삭제 중 오류가 발생했습니다.");
         }
     };
+
 
     // 답변 내용이 출렫되는 컴포넌트
     return (
@@ -38,7 +41,7 @@ function AdminInquiryAnswerBox({ inquiry, reload }: Props) {
             <AnswerContent className={"answer-content"}>{inquiry.answer}</AnswerContent>
 
             <AdminButtonGroup $align={"right"} style={{ marginTop: "24px" }}>
-                <Button color={"warning"} variant={"contained"}>
+                <Button color={"warning"} variant={"contained"} onClick={() => setIsEdit(true)}>
                     답변 수정
                 </Button>
                 <Button color={"error"} variant={"contained"} onClick={handleDeleteAnswer}>

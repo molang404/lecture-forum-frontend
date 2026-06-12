@@ -21,6 +21,7 @@ function AdminInquiryDetailPage() {
     const navigate = useNavigate();
     const [inquiry, setInquiry] = useState<Inquiry | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isEdit, setIsEdit] = useState(false);
 
     const { id } = useParams<{ id: string }>();
     const inquiryId = Number(id);
@@ -90,36 +91,29 @@ function AdminInquiryDetailPage() {
                             답변이 이미 달렸다면 답변 내용이 출력될 수 있도록 함
                 */}
                 <AnswerSection>
-                    {inquiry.answer ? (
-                        <AdminInquiryAnswerBox inquiry={inquiry} reload={loadInquiry} />
+                    {inquiry.answer && !isEdit ? (
+                        <AdminInquiryAnswerBox
+                            inquiry={inquiry}
+                            reload={loadInquiry}
+                            setIsEdit={setIsEdit}
+                        />
                     ) : (
-                        <AdminInquiryAnswerForm inquiryId={inquiryId} reload={loadInquiry} />
+                        <AdminInquiryAnswerForm
+                            inquiry={inquiry}
+                            reload={loadInquiry}
+                            isEdit={isEdit}
+                            setIsEdit={setIsEdit}
+                        />
                     )}
                 </AnswerSection>
 
-                <AdminButtonGroup
-                    style={{ marginTop: "40px" }}
-                    $align={inquiry.answer ? "space-between" : "right"}>
+                <AdminButtonGroup style={{ marginTop: "40px" }} $align={"right"}>
                     <Button
                         color={"secondary"}
                         variant={"contained"}
                         onClick={() => navigate("/admin/inquiry")}>
                         목록으로
                     </Button>
-
-                    {inquiry.answer && (
-                        <div style={{ display: "flex", gap: "10px" }}>
-                            <Button
-                                color={"warning"}
-                                variant={"contained"}
-                                onClick={() => navigate(`/admin/inquiry/edit/${inquiryId}`)}>
-                                수정
-                            </Button>
-                            <Button color={"error"} variant={"contained"}>
-                                삭제
-                            </Button>
-                        </div>
-                    )}
                 </AdminButtonGroup>
             </DetailWrapper>
         </PostContainer>

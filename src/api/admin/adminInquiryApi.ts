@@ -14,17 +14,16 @@ const getInquiryList = async (page: number, size: number) => {
 const getInquiryById = async (inquiryId: number) => {
     const response = await axiosInstance.get(`/admin/inquiry/${inquiryId}`);
     return response.data.data;
-}
+};
 
 const updateInquiryAnswer = async (inquiryId: number, input: AdminInquiryAnswerInputType) => {
     const response = await axiosInstance.patch(`/admin/inquiry/${inquiryId}`, input);
     return response.data.data;
-}
+};
 
 const deleteInquiryAnswer = async (inquiryId: number) => {
-    const response = await axiosInstance.delete(`/admin/inquiry/${inquiryId}`);
-    return response.data.data;
-}
+    await axiosInstance.delete(`/admin/inquiry/${inquiryId}`);
+};
 
 export default {
     getInquiryList,

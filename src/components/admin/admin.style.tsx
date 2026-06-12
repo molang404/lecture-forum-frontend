@@ -76,22 +76,65 @@ export const AdminForm = styled.form<{ $wrap?: boolean }>`
 // 그렇게 들어오는 props.$align 의 기본값을 설정해주기 위해서는
 // 소괄호를 생략하지 않고 (props) => 로 써줘야 되며,
 // 구조분해할당을 통해 ({ $align }) => 로 써줘야 함
-export const AdminButtonGroup = styled.div<{ $align?: "left" | "right" | "center" | "space-between" }>`
+export const AdminButtonGroup = styled.div<{
+    $align?: "left" | "right" | "center" | "space-between";
+}>`
     display: flex;
     gap: 12px;
     align-items: center;
     justify-content: ${({ $align = "right" }) =>
-        $align === "right" ? "flex-end" : $align === "center" ? "center" : $align === "left" ? "flex-start" : "space-between"};
+        $align === "right"
+            ? "flex-end"
+            : $align === "center"
+              ? "center"
+              : $align === "left"
+                ? "flex-start"
+                : "space-between"};
 `;
 
 export const AnswerSection = styled.div`
-margin-top: 32px;
-padding: 24px;
-background-color: ${props => props.theme.colors.background.default};
-border-radius: 8px;
+    margin-top: 32px;
+    padding: 24px;
+    background-color: ${props => props.theme.colors.background.default};
+    border-radius: 8px;
 
-.status-badge {
-    margin-right: 12px;
-    vertical-align: middle;
-}
+    .status-badge {
+        margin-right: 12px;
+        vertical-align: middle;
+    }
+`;
+
+export const AnswerDisplay = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    .answer-content {
+        padding: 16px;
+    }
+`;
+
+export const AnswerHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid ${props => props.theme.colors.divider};
+    padding-bottom: 16px;
+
+    h4 {
+        font-size: 18px;
+        color: ${props => props.theme.colors.primary};
+        font-weight: 700;
+    }
+
+    small {
+        color: ${props => props.theme.colors.secondary};
+        font-size: 14px;
+    }
+`;
+
+export const AnswerContent = styled.div`
+    padding: 32px 0;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-all;
 `;

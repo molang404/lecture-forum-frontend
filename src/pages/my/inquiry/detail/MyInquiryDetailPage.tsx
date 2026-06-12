@@ -77,7 +77,6 @@ function MyInquiryDetailPage() {
                                 })}
                             </span>
                         </div>
-                        <div className={"right-info"}></div>
                     </DetailInfo>
                 </DetailHeader>
 

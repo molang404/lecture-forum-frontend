@@ -83,3 +83,15 @@ export const AdminButtonGroup = styled.div<{ $align?: "left" | "right" | "center
     justify-content: ${({ $align = "right" }) =>
         $align === "right" ? "flex-end" : $align === "center" ? "center" : $align === "left" ? "flex-start" : "space-between"};
 `;
+
+export const AnswerSection = styled.div`
+margin-top: 32px;
+padding: 24px;
+background-color: ${props => props.theme.colors.background.default};
+border-radius: 8px;
+
+.status-badge {
+    margin-right: 12px;
+    vertical-align: middle;
+}
+`;

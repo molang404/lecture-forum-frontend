@@ -48,7 +48,7 @@ const StyledBadge = styled.span<{
                     background-color: ${theme.colors.warning}20;
                     color: ${theme.colors.warning};
                 `;
-            case "info":
+            case "edit":
                 return css`
                     background-color: ${theme.colors.info}20;
                     color: ${theme.colors.info};

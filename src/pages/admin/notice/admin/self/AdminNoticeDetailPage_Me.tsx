@@ -72,7 +72,7 @@ function AdminNoticeDetailPage_Me() {
                 <DetailHeader>
                     <DetailTitle>{notice.title}</DetailTitle>
                     <DetailInfo>
-                        <div className={"left-info"}>
+                        <div className={"left-edit"}>
                             <span>
                                 <p>토론대난투</p>
                             </span>

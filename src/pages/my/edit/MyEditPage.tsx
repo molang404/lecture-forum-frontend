@@ -19,7 +19,7 @@ import { isAxiosError } from "axios";
 import { useAuthStore } from "../../../stores/auth/authStore.ts";
 import { useEffect } from "react";
 
-function MyInfoPage() {
+function MyEditPage() {
     // useEffect를 쓰고, 그 안에서 loadUser라는 함수를 만들어서 백엔드에게 데이터를 가져오고
     // 그 데이터를 사용해서 화면에다가 출력 => 필요하면 해야함
 
@@ -128,4 +128,4 @@ function MyInfoPage() {
     );
 }
 
-export default MyInfoPage;
+export default MyEditPage;

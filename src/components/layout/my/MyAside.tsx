@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router";
 
 const myNavList = [
     {
-        path: "/my",
+        path: "/my/edit",
         label: "회원정보변경",
         icon: <FiUser size={18} />,
     },

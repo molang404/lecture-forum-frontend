@@ -23,7 +23,7 @@ import NoticeListPage from "../pages/admin/notice/NoticeListPage.tsx";
 import NoticeDetailPage from "../pages/admin/notice/detail/NoticeDetailPage.tsx";
 import AdminInquiryListPage from "../pages/admin/inquiry/AdminInquiryListPage.tsx";
 import MyLayout from "../layouts/MyLayout.tsx";
-import MyInfoPage from "../pages/my/info/MyInfoPage.tsx";
+import MyEditPage from "../pages/my/edit/MyEditPage.tsx";
 import MyInquiryListPage from "../pages/my/inquiry/MyInquiryListPage.tsx";
 import MyInquiryCreatePage from "../pages/my/inquiry/create/MyInquiryCreatePage.tsx";
 import MyInquiryDetailPage from "../pages/my/inquiry/detail/MyInquiryDetailPage.tsx";
@@ -31,6 +31,7 @@ import MyInquiryEditPage from "../pages/my/inquiry/edit/MyInquiryEditPage.tsx";
 import AdminInquiryDetailPage from "../pages/admin/inquiry/AdminInquiryDetailPage.tsx";
 import MyPasswordPage from "../pages/my/password/MyPasswordPage.tsx";
 import MyWithdrawPage from "../pages/my/withdraw/MyWithdrawPage.tsx";
+import MyInfoPage from "../pages/my/MyInfoPage.tsx";
 
 // 회원의 권한에 따라 접근할 수 있는 주소를 판별하기 위해서
 // react-router 라이브러리에서는 "로더(loader)"라는 기능을 제공함
@@ -115,6 +116,7 @@ const router = createBrowserRouter([
                 element: <MyLayout />,
                 children: [
                     { index: true, element: <MyInfoPage /> },
+                    { path: "edit", element: <MyEditPage /> },
                     { path: "password", element: <MyPasswordPage /> },
                     { path: "withdraw", element: <MyWithdrawPage /> },
                     {

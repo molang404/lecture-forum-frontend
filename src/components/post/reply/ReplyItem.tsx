@@ -29,7 +29,7 @@ function ReplyItem({ item, user, loadReplies }: Props) {
     return (
         <StyledReplyItem key={item.id}>
             <ReplyHeader>
-                <div className={"author-info"}>
+                <div className={"author-edit"}>
                     <strong>{item.user.nickname}</strong>
                     <span className={"date"}>
                         {new Date(item.createdAt).toLocaleString("ko-KR", {

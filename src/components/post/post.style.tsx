@@ -235,6 +235,76 @@ export const VoteCard = styled.button<{ $color: string }>`
     }
 `;
 
+export const ResultSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+`;
+
+export const ResultBarWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: ${props => props.theme.colors.divider};
+`;
+
+export const ResultBar = styled.div<{ $color: string; $width: string }>`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    width: ${props => props.$width};
+    background-color: ${props => props.$color};
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    transition: width 1s;
+    white-space: nowrap;      // 글자가 줄바꿈이 안되도록
+    overflow: hidden;         // 칸이 작아도 부모 요소 크기에 맞춰서 가려지도록
+    
+    .label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .percent {
+        font-size: 18px;
+    }
+`;
+
+export const ResultText = styled.p`
+    text-align: center;
+    font-size: 14px;
+    color: ${props => props.theme.colors.secondary};
+    margin-top: 8px;
+`;
+
+export const RevoteButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 16px auto 0 auto;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: ${props => props.theme.colors.secondary};
+    background-color: transparent;
+    border: 1px solid ${props => props.theme.colors.divider};
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    
+    &:hover {
+        color: ${props => props.theme.colors.text.default};
+        border-color: ${props => props.theme.colors.secondary};
+        background-color: ${props => props.theme.colors.background.default};
+    }
+`;
+
 export const LoadingText= styled.div`
     text-align: center;
     padding: 100px 0;

@@ -18,15 +18,15 @@ import { AdminButtonGroup } from "../../../components/admin/admin.style.tsx";
 import Button from "../../../components/common/button/Button.tsx";
 import {GiCrossedSwords} from "react-icons/gi";
 import { LuDroplets, LuFlame } from "react-icons/lu";
+import VotePost from "../../../components/post/VotePost.tsx";
 
 function PostDetailPage() {
     const navigate = useNavigate();
     const [post, setPost] = useState<Post | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isVoting, setIsVoting] = useState(false);
 
     const { id } = useParams<{ id: string }>();
-    const { user, isLoggedIn } = useAuthStore();
+    const { user } = useAuthStore();
 
     // 글 내용을 백엔드에게서 불러오는 행위를 useEffect 밖에서 하기 위해
     // loadPost 함수를 밖으로 빼게되고,
@@ -65,12 +65,6 @@ function PostDetailPage() {
 
     // post라고 하는 데이터가 불러잔 이후에 판별 가능
     const hasVoteSystem = !!post.option1Text && !!post.option2Text;
-    const totalVotes = post.vote?.totalCount || 0;
-    // 전체 투표 수가 0이면, option1 투표한 퍼센트를 50%로 가져가고, opt2도 50%
-    // Math.ceil() => 올림
-    // Math.round() => 반올림
-    const opt1Percent = totalVotes > 0 && post.vote ? Math.round((post.vote.option1Count / totalVotes) * 100) : 50;
-    const opt2Percent = totalVotes > 0 && post.vote ? Math.round((post.vote.option1Count / totalVotes) * 100) : 50;
 
     return (
         <PostContainer>
@@ -121,6 +115,8 @@ function PostDetailPage() {
                         </VoteSection>
                     </BattleGround>
                 )}
+
+                <VotePost post={post} loadPost={loadPost} />
 
                 <AdminButtonGroup>
                     <Button color={"secondary"} variant={"contained"} onClick={() => navigate(-1)}>

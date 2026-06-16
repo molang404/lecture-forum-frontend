@@ -5,7 +5,7 @@ function MyInfoPage() {
     //
     // const totalPage = Math.ceil(total / SIZE);
     //
-    // return <></>
+    return <></>
 }
 
 export default MyInfoPage;

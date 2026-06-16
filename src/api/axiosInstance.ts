@@ -1,12 +1,13 @@
 import * as axios from "axios";
 import { useAuthStore } from "../stores/auth/authStore.ts";
+import { isAxiosError } from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const api = axios.create({
-    baseURL: BASE_URL,   // 옵션을 진행할 상대의 기본 주소
-    timeout: 5000,       // 통신 요청을 했을 때 실패되었다고 판단하는 타임아웃 시간 (ms 밀리세컨드 단위, 5초)
-    withCredentials: true,  // CORS 요청을 허용할지 여부
+    baseURL: BASE_URL, // 옵션을 진행할 상대의 기본 주소
+    timeout: 5000, // 통신 요청을 했을 때 실패되었다고 판단하는 타임아웃 시간 (ms 밀리세컨드 단위, 5초)
+    withCredentials: true, // CORS 요청을 허용할지 여부
 });
 
 export default api;
@@ -40,8 +41,29 @@ api.interceptors.request.use(config => {
         // Digest라고 붙으면, MD5 형식으로 암호화한 값이 들어간다는 의미
     }
     return config;
-})
+});
 
 // api.interceptors.response 에는 그렇게 요청한 응답이 도착했을 때
 // 응답을 실제 사용하기 전, 해야할 일에 대해서 api.interceptors.response.use() 에다가
 // 등록할 수 있음
+// intercepter.response.use(성공(HTTP STATUS 200)일 때 해야되는 일(함수), 실패(HTTP STATUS 4xx OR 5xx)일 때 해야되는 일(함수))
+api.interceptors.response.use(
+    response => response,
+    error => {
+        if (isAxiosError(error) && error.response) {
+            if (error.response.status === 401) {
+                useAuthStore.getState().logout();
+                // 사용자를 이동시켜줘야 하는데, 마찬가지로 컴포넌트 안이 아니니까 useNavigate를 쓸 수 없음
+                // useState (X), useEffect (X), useNavigate (X). react-hook 전부 다 못 씀
+                alert("로그인 세션이 만료되었습니다. 다시 로그인 해주세요.");
+                window.location.href = "/auth/login";
+            }
+        }
+
+        // 인터셉터를 통해 "실패"에 해당하는 HTTP status code가 와서 axios는 실패(두번째 매개변수)로 잡았지만
+        // return에 따라 상위 try - catch에서 잡는 걸 바꿔줄 수도 있음
+        // 성공으로 바꿔주려면 Promise.resolve()
+        // 실패로 진핼하여면 Promise.reject()
+        return Promise.reject(error); // 원래 이게 실행되고 있었던 try - catch 절에 catch로 다시 던짐
+    },
+);

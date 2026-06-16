@@ -4,6 +4,11 @@ import type { Post } from "../../types/post.type.ts";
 import type {CreatePostInputType} from "../../schemas/post/createPostSchema.ts";
 import type {UpdatePostInputType} from "../../schemas/post/UpdatePostSchema.ts";
 
+const fetchRecentPostList = async () => {
+    const response = await axiosInstance.get("/post/recent/list");
+    return response.data.data;
+}
+
 const fetchPostListByCategory = async (categoryId: number, page: number, size: number): Promise<PaginationResponseType<Post>> => {
     const response = await axiosInstance.get(`/post/list/${categoryId}?page=${page}&size=${size}`);
     return response.data.data;
@@ -24,8 +29,8 @@ const updatePost = async (postId: number, data: UpdatePostInputType) => {
     return response.data.data;
 }
 
-const deletePost = async (postId: number) => {
-    await axiosInstance.delete(`/post/${postId}`);
+const privatePost = async (postId: number) => {
+    await axiosInstance.patch(`/post/${postId}/private`);
 };
 
 const votePost = async (postId: number, option: number) => {
@@ -38,11 +43,12 @@ const cancelVotePost = async (postId: number) => {
 };
 
 export default {
+    fetchRecentPostList,
     fetchPostListByCategory,
     createPost,
     fetchPostById,
     updatePost,
-    deletePost,
+    privatePost,
     votePost,
     cancelVotePost,
 };

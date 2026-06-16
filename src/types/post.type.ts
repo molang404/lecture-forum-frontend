@@ -1,4 +1,5 @@
 import type { User } from "./user.type.ts";
+import type { Category } from "./category.type.ts";
 
 export interface Post {
     id: number;
@@ -24,4 +25,9 @@ export interface Post {
         totalCount: number;
         hasVoted: boolean;
     } | null;
+}
+
+// 첫 페이지에서만 있고 글 목록+상세에는 없는 항목
+export interface RecentPost extends Post {
+    category: Pick<Category, "id" | "name">;
 }
